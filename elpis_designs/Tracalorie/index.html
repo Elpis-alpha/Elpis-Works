@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Tracalorie | Meal & Calorie Tracker</title>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <nav>
+      <h1>Tracalorie</h1>
+      <a href="#" id="clr-all">Clear All</a>
+    </nav>
+
+    <div class="main-content">
+
+      <div class="form">
+
+        <span>Add Meal / Food Item</span>
+
+        <form>
+
+          <div class="form-box-holder">
+
+            <div class="form-box">
+
+              <label>Meal</label>
+              <input type="text" autocomplete="off" required placeholder="Add Item" id="item-name">
+
+            </div>
+
+            <div class="form-box">
+
+              <label>Calories</label>
+              <input type="number" autocomplete="off" required placeholder="Add Calories" id="item-calories">
+
+            </div>
+
+          </div>
+
+          <div class="buttons-holder">
+
+            <button id="meal-add">Add Meal</button>
+            <button id="meal-update">Update Meal</button>
+            <button id="meal-delete">Delete Meal</button>
+            <button id="meal-back">Back</button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="cal-count">
+        <h3>Total Calories:
+          <span id="total-calories">0</span>
+        </h3>
+      </div>
+
+      <ul id="item-list">
+
+        <!-- <li class="list-item" id="item-0">
+          <p><strong>Steak Dinner: </strong> 1200</p>
+          <a class='right-icon'>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            </svg>
+          </a>
+        </li> -->
+        
+      </ul>
+
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>

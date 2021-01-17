@@ -1,0 +1,201 @@
+*{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-size: 1rem;
+  position: relative;
+  box-sizing: border-box;
+}
+
+body{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Agency FB;
+  background-color: hotpink;
+}
+
+div.card{
+  padding: 1rem;
+  width: 100%;
+}
+
+nav{
+  border-bottom: 1px solid black;
+  width: 100%;
+  padding-bottom: .5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav > h1{
+  font-size: 1.7rem;
+}
+
+nav > a{
+  color: black;
+  text-decoration: none;
+  border: 1px solid rgb(221, 190, 205);
+  padding: .3rem 1rem;
+  outline: 0;
+  border-radius: .5rem;
+  transition: box-shadow .5s, border .5s;
+}
+
+nav > a:hover{
+  border: 1px solid hotpink;
+  box-shadow: 0 0 10px 1px rgb(221, 190, 205);
+}
+
+div.form{
+  box-shadow: 0 0 10px 1px rgb(221, 190, 205);
+  padding: .5rem;
+  border-radius: 1rem;
+}
+
+div.form > span{
+  text-align: center;
+  display: block;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(221, 190, 205);
+  padding-bottom: .25rem;
+}
+
+form{
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+div.form-box-holder{
+  display: flex;
+}
+
+div.form-box-holder div.form-box:first-child{
+  flex: 2;
+  padding-right: 1rem;
+}
+
+div.form-box-holder div.form-box:last-child{
+  flex: 1;
+}
+
+div.form-box-holder div.form-box input{
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid rgb(221, 190, 205);
+  font-family: Agency FB;
+  font-size: .8rem;
+  padding: .3rem;
+  padding-left: 0;
+}
+
+div.form-box-holder div.form-box label{
+  font-weight: bold;
+}
+
+::placeholder{
+  color: rgb(221, 190, 205);
+  font-family: Agency FB;
+  font-size: .8rem;
+}
+
+div.buttons-holder{
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+div.buttons-holder > button{
+  color: black;
+  text-decoration: none;
+  padding: .3rem 1rem;
+  font: inherit;
+  outline: 0;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: box-shadow .5s, border .5s;
+}
+
+div.buttons-holder > button#meal-add{
+  border: 1px solid greenyellow;
+  background-color: greenyellow;
+}
+
+div.buttons-holder > button#meal-update{
+  border: 1px solid yellow;
+  background-color: yellow;
+}
+
+div.buttons-holder > button#meal-delete{
+  border: 1px solid rgb(212, 85, 85);
+  background-color: rgb(212, 85, 85);
+}
+
+div.buttons-holder > button#meal-back{
+  border: 1px solid rgb( 100, 100, 100);
+  background-color: rgb( 100, 100, 100);
+}
+
+div.buttons-holder > button#meal-add:hover{
+  border: 1px solid greenyellow;
+  box-shadow: 0 0 10px 1px greenyellow;
+}
+
+div.buttons-holder > button#meal-update:hover{
+  border: 1px solid yellow;
+  box-shadow: 0 0 10px 1px yellow;
+}
+
+div.buttons-holder > button#meal-delete:hover{
+  border: 1px solid  rgb(212, 85, 85);
+  box-shadow: 0 0 10px 1px rgb(212, 85, 85);
+}
+
+div.buttons-holder > button#meal-back:hover{
+  border: 1px solid rgb( 100, 100, 100);
+  box-shadow: 0 0 10px 1px rgb( 100, 100, 100);
+}
+
+div.cal-count > h3{
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+li.list-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  padding: .5rem;
+  margin-bottom: .5rem;
+}
+
+li > a{
+  width: 1.2%;
+  fill: blue;
+  z-index: 10;
+}
+
+path, svg{
+  z-index: -1;
+}
+
+@media screen and (max-width: 700px){
+  li > a{
+    width: 2.5%;
+  }
+}
+
+@media screen and (max-width: 300px){
+  li > a{
+    width: 4.5%;
+  }
+}

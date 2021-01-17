@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Loan Calculator</title>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <h1 class="heading">Loan Calculator</h1>
+
+    <form id="loan-form">
+
+      <div class="input-holders">
+        <label for="amount">Amount</label>
+        <span id="add-input">$</span>
+        <input required type="number" placeholder="Loan Amount" id="amount">
+      </div>
+
+      <div class="input-holders">
+        <label for="intrest">Intrest</label>
+        <span id="add-input">%</span>
+        <input required type="number" placeholder="Intrest" id="intrest">
+      </div>
+
+      <div class="input-holders">
+        <label for="years">Years to Repay</label>
+        <input required type="number" placeholder="Years" id="years">
+      </div>
+
+      <div class="">
+        <input type="submit" id="calculate" value="Calculate">
+      </div>
+
+    </form>
+
+    <div id="loading">
+      <img id="image-loading" src="image/unnamed (1).gif" alt="">
+    </div>
+
+    <div class="results">
+
+      <h1>Results</h1>
+
+      <div class="result-holders">
+        <label>Monthly Payment</label>
+        <span id="add-input">$</span>
+        <input type="number" id="monthly-payment" disabled>
+      </div>
+
+      <div class="result-holders">
+        <label>Total Payment</label>
+        <span id="add-input">$</span>
+        <input type="number" id="total-payment" disabled>
+      </div>
+
+      <div class="result-holders">
+        <label>Total Intrest</label>
+        <span id="add-input">$</span>
+        <input type="number" id="total-intrest" disabled>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>

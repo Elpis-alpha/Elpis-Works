@@ -1,0 +1,100 @@
+@font-face{
+  src: url(font/Hein.ttf);
+  font-family: mainFont;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-size: 1rem;
+  position: relative;
+  box-sizing: border-box;
+}
+
+::placeholder{
+  font-family: mainFont;
+}
+
+body{
+  background-color: cyan;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: mainFont;
+}
+
+div.card{
+  box-shadow: 0 0 10px 1px black;
+  padding: 1rem;
+  width: 80%;
+  max-width: 500px;
+}
+
+div.form-x{
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+div.form-x:first-child{
+  padding-top: 1rem;
+}
+
+div.red-alert{
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: .8rem;
+  color: red;
+  transition: opacity .5s;
+}
+
+input.show-alert + div.red-alert{
+  opacity: 1;
+}
+
+label{
+  font-weight: bold;
+  padding-bottom: .2rem;
+}
+
+div.form-x > input{
+  width: 100%;
+  padding: .5rem;
+  outline: 0;
+  border-radius: .5rem;
+  border: 1px solid cyan;
+  background-color: rgb(161, 252, 252);
+  font-family: mainFont;
+  transition: box-shadow .5s;
+}
+
+div.form-x > input:focus{
+  box-shadow: 0 0 5px 1px;
+}
+
+input#submit{
+  width: 100%;
+  padding: .5rem;
+  outline: 0;
+  border-radius: .5rem;
+  border: 0;
+  background-color: rgb(161, 252, 252);
+  font-family: mainFont;
+  transition: box-shadow .5s;
+  cursor: pointer;
+}
+
+input#zipcode{
+  font-family: gabriola;
+}
+
+input#submit:hover{
+  box-shadow: 0 0 5px 1px;
+}

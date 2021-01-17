@@ -1,0 +1,121 @@
+*{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-size: 1rem;
+  position: relative;
+  font-family: gabriola;
+  box-sizing: border-box;
+}
+
+body{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+h1{
+  font-size: 1.5rem;
+  text-align: center;
+  /* text-decoration: line-through; */
+}
+
+h1{
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+hr{
+  width: 90%;
+  margin: 1rem;
+}
+
+div.card{
+  border-radius: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+button{
+  border-radius: 1rem;
+  padding: .2rem 1rem;
+  border: 1px solid black;
+  transition: background-color 1s, box-shadow 1s;
+  text-align: center;
+  outline: 0;
+  width: 50%;
+  margin-top: 1rem;
+}
+
+div.bdiv{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 1s, box-shadow 1s;
+}
+
+input{
+  width: 100%;
+  padding-left: 1rem;
+  outline: 0;
+  border-radius: 1rem;
+  text-align: center;
+  border: 1px solid black;
+  transition: background-color 1s, box-shadow 1s;
+}
+
+input:focus{
+  box-shadow: 0 0 5px 1px black;
+}
+
+button:hover{
+  background-color: royalblue;
+  box-shadow: 0 0 5px 1px royalblue;
+}
+
+div#output{
+  width: 80%;
+  text-align: center;
+}
+
+div.card > div.btn{
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}
+
+div.card > div.ctm{
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}
+
+div.card > ul.jokes > li{
+  padding-bottom: 1rem;
+  margin-top: 3rem;
+  /* width: 50%; */
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-left: 1rem;
+}
+
+div.loader{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+div.loader img{
+  width: 30%;
+  margin-top: 2rem;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Ajax SandBox</title>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <h1>Elpis Dictionary</h1>
+
+    <form id="search-word">
+
+      <input type="text" id="word-input" placeholder="Search" autocomplete="off">
+      <input type="submit" value="Search">
+
+      <div class="cho-div">
+
+        <div class="cho-holder">
+          <input type="radio" class="cho-type" name="cho-type" value="Elpis" id="word-only">
+          <label for="word-only">Word Only</label>
+        </div>
+
+        <div class="cho-holder">
+          <input type="radio" checked class="cho-type" name="cho-type" id="word-starting">
+          <label for="word-starting">Starting Word</label>
+        </div>
+
+        <div class="cho-holder">
+          <input type="radio" class="cho-type" name="cho-type" id="word-inside">
+          <label for="word-inside">Words Containing</label>
+        </div>
+
+      </div>
+
+    </form>
+
+    <div class="loader">
+      <img src="gifs/unnamed (1).gif" alt="">
+    </div>
+
+    <div id="display-meaning"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+
+</html>
