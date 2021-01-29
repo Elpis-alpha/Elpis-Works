@@ -1,3 +1,8 @@
+@font-face {
+  src: 'gab.ttf'; 
+  font-family: 'gabriola'!
+}
+
 *{
   margin: 0;
   padding: 0;
