@@ -1,10 +1,15 @@
+@font-face {
+  src: url(gab.ttf);
+  font-family: elpisFont;
+}
+
 *{
   margin: 0;
   padding: 0;
   list-style-type: none;
   font-size: 1rem;
   position: relative;
-  font-family: gabriola;
+  font-family: elpisFont;
   box-sizing: border-box;
   font-family: Agency FB;
 }
