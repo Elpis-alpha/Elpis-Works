@@ -47,13 +47,17 @@ async function startPage() {
   UICreg.style.padding = `${getWindowRadius() + 50}px`
 
 
-  await delayFor(1000)
+  await delayFor(1500)
 
   body.classList.add('finished')
 
-  UICregHolder.remove()
+  setTimeout(() => {
+    
+    UICregHolder.remove()
+  
+    UIinitialContent.remove()
 
-  UIinitialContent.remove()
+  }, 2000);
 
 
   body.classList.add('finished1')
