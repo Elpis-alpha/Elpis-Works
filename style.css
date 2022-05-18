@@ -14,7 +14,7 @@
   position: relative;
   box-sizing: border-box;
   list-style-type: none;
-  animation: into-overflow 19s 1;
+  animation: into-overflow 3s 1;
 }
 
 body {
