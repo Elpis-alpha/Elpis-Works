@@ -17,39 +17,48 @@ const windowWidth = window.outerWidth
 // Event Listeners
 document.addEventListener('DOMContentLoaded', startPage)
 
+// For Debugging
+const timeDiff = initTime => console.log(new Date().getTime() - initTime)
+
+const delayFor = async time => await new Promise(resolve => setTimeout(() => { resolve(time) }, time))
 
 // Functions
 function getWindowRadius() {
+
   let rad = (Math.pow(windowHeight, 2)) + (Math.pow(windowWidth, 2))
 
-  rad = Math.pow(rad, (1/2))
+  rad = Math.pow(rad, (1 / 2))
 
   rad = rad / 2
 
   rad = Math.ceil(rad)
 
   return rad
+
 }
 
-function startPage() {
-  setTimeout(() => {
-    UICreg.style.padding = `${getWindowRadius() +20}px`
-  }, 4000);
+async function startPage() {
 
-  setTimeout(() => {
-    body.classList.add('finished')
-    
-    UICregHolder.remove()
-    
-    UIinitialContent.remove()
+  const initTime = new Date().getTime()
 
-    setTimeout(() => {
-      body.classList.add('finished1')
 
-      setTimeout(() => {
-        body.classList.add('finished2')
-      }, 2000)
-    }, 2500)
-  }, 9000)
+  await delayFor(2000)
+
+  UICreg.style.padding = `${getWindowRadius() + 50}px`
+
+
+  await delayFor(1000)
+
+  body.classList.add('finished')
+
+  UICregHolder.remove()
+
+  UIinitialContent.remove()
+
+
+  body.classList.add('finished1')
+
+  body.classList.add('finished2')
+
 }
 

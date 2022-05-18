@@ -1,14 +1,14 @@
-@font-face{
+@font-face {
   font-family: ElpisFont;
   src: url(Fonts/Devr.ttf);
 }
 
-@font-face{
+@font-face {
   font-family: holderFont;
   src: url(Fonts/Acquest.ttf);
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   position: relative;
@@ -17,7 +17,7 @@
   animation: into-overflow 19s 1;
 }
 
-body{
+body {
   font-family: ElpisFont;
   display: flex;
   align-items: center;
@@ -28,7 +28,7 @@ body{
   font-size: 1rem;
 }
 
-body.finished{
+body.finished {
   background-color: #00192a;
   background-image: none;
 }
@@ -39,14 +39,17 @@ body.finished{
   height: .3rem;
   background: #00192a;
 }
+
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
@@ -55,37 +58,57 @@ body.finished{
 /* Custom Scroll bar END */
 
 
-h1{
+h1 {
   font-size: 2rem;
 }
 
-@keyframes hide-show{
-  0%{opacity: 0;}
-  100%{opacity: 1;}
+@keyframes hide-show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
-@keyframes right-left{
-  0%{left: 100vw; overflow: hidden;}
-  100%{left: 0vw; overflow: auto;}
+@keyframes right-left {
+  0% {
+    left: 100vw;
+    overflow: hidden;
+  }
+
+  100% {
+    left: 0vw;
+    overflow: auto;
+  }
 }
 
-@keyframes into-overflow{
-  0%{overflow: hidden;}
-  99%{overflow: hidden;}
-  100%{overflow: auto;}
+@keyframes into-overflow {
+  0% {
+    overflow: hidden;
+  }
+
+  99% {
+    overflow: hidden;
+  }
+
+  100% {
+    overflow: auto;
+  }
 }
 
-div.creg{
+div.creg {
   border: 1rem solid #00192a;
   border: .2rem solid white;
   border-radius: 50%;
   padding: 0rem;
-  transition: padding 5s;
+  transition: padding 3s;
   background-color: #00192a;
-  animation: hide-show 5s 1;
+  animation: hide-show 2s 1;
 }
 
-div.creg-holder{
+div.creg-holder {
   padding: 1rem;
   display: flex;
   align-items: center;
@@ -97,10 +120,11 @@ div.creg-holder{
   position: absolute;
   z-index: 20;
   background-color: transparent;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
 }
 
-div.initial-content{
+div.initial-content {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -113,66 +137,76 @@ div.initial-content{
   background-color: transparent;
 
   color: white;
-  animation: hide-show 5s 1;
-  top: 0; left: 0;
+  animation: hide-show 2s 1;
+  top: 0;
+  left: 0;
 }
 
-div.initial-content > p{
+div.initial-content>p {
   font-size: 1rem;
 }
 
-div.initial-content > h1{
+div.initial-content>h1 {
   font-size: 5rem;
   font-family: holderFont;
   font-weight: normal
 }
 
 @media screen and (max-width: 400px) {
-  div.initial-content > h1{font-size: 3rem;}
+  div.initial-content>h1 {
+    font-size: 3rem;
+  }
 
-  div.initial-content > p{font-size: .8rem;}
+  div.initial-content>p {
+    font-size: .8rem;
+  }
 }
 
 @media screen and (max-width: 230px) {
-  div.initial-content > h1{font-size: 2rem;}
+  div.initial-content>h1 {
+    font-size: 2rem;
+  }
 
-  div.initial-content > p{font-size: .5rem;}
+  div.initial-content>p {
+    font-size: .5rem;
+  }
 }
 
-div.big-wrapper{
+div.big-wrapper {
   color: white;
   z-index: 25;
   opacity: 0;
   min-height: 100vh;
 
-  animation: hide-show 5s 1;
-  animation-delay: 5s;
+  animation: hide-show 2s 1;
+  animation-delay: 2.5s;
 }
 
-body.finished div.big-wrapper{
+body.finished div.big-wrapper {
   opacity: 1;
 }
 
-body div.big-wrapper header h1{
-  top: 0; left: 0;
+body div.big-wrapper header h1 {
+  top: 0;
+  left: 0;
   line-height: 100vh;
   text-align: center;
   width: 100%;
   background-color: #00192a;
   position: fixed;
   z-index: 28;
-  transition: line-height 2.5s;
+  transition: line-height 2s;
 }
 
-body.finished div.big-wrapper header h1{
+body.finished div.big-wrapper header h1 {
   line-height: 6rem;
 }
 
-body.finished1 div.big-wrapper div.laside{
+body.finished1 div.big-wrapper div.laside {
   left: 0vw;
 }
 
-body div.big-wrapper aside span{
+body div.big-wrapper aside span {
   width: 100%;
   height: 10%;
   display: flex;
@@ -181,18 +215,19 @@ body div.big-wrapper aside span{
 }
 
 
-body div.big-wrapper div.laside{
+body div.big-wrapper div.laside {
   position: fixed;
-  top: 0; left: -10.5vw;
+  top: 0;
+  left: -10.5vw;
   display: flex;
   border-right: 1px solid white;
   z-index: 27;
   height: 100vh;
   padding-top: 6rem;
-  transition: left 2s;
+  transition: left 1s;
 }
 
-body div.big-wrapper aside{
+body div.big-wrapper aside {
   text-align: center;
   width: 4vw;
   border-top: 1px solid white;
@@ -203,81 +238,126 @@ body div.big-wrapper aside{
   justify-content: center;
 }
 
-body div.big-wrapper aside:last-child{
+body div.big-wrapper aside:last-child {
   width: 6vw;
   padding-right: 2vw;
 }
 
 @media screen and (max-width: 900px) {
-  body div.big-wrapper div.laside{left: -11.5vw;}
-  body div.big-wrapper aside{width: 5vw;}
+  body div.big-wrapper div.laside {
+    left: -11.5vw;
+  }
+
+  body div.big-wrapper aside {
+    width: 5vw;
+  }
 }
 
 @media screen and (max-width: 700px) {
-  body div.big-wrapper div.laside{left: -13.5vw;}
-  body div.big-wrapper aside{width: 6vw;}
-  body div.big-wrapper aside:last-child{width: 7vw;}
+  body div.big-wrapper div.laside {
+    left: -13.5vw;
+  }
+
+  body div.big-wrapper aside {
+    width: 6vw;
+  }
+
+  body div.big-wrapper aside:last-child {
+    width: 7vw;
+  }
 }
 
 @media screen and (max-width: 500px) {
-  body div.big-wrapper div.laside{left: -17.5vw;}
-  body div.big-wrapper aside{width: 8vw;}
-  body div.big-wrapper aside:last-child{width: 9vw;}
+  body div.big-wrapper div.laside {
+    left: -17.5vw;
+  }
+
+  body div.big-wrapper aside {
+    width: 8vw;
+  }
+
+  body div.big-wrapper aside:last-child {
+    width: 9vw;
+  }
 }
 
 @media screen and (max-width: 350px) {
-  body div.big-wrapper div.laside{left: -21.5vw;}
-  body div.big-wrapper aside{width: 10vw;}
-  body div.big-wrapper aside:last-child{width: 11vw;}
+  body div.big-wrapper div.laside {
+    left: -21.5vw;
+  }
+
+  body div.big-wrapper aside {
+    width: 10vw;
+  }
+
+  body div.big-wrapper aside:last-child {
+    width: 11vw;
+  }
 }
 
 @media screen and (max-width: 150px) {
-  body div.big-wrapper div.laside{left: -30.5vw;}
-  body div.big-wrapper aside{width: 15vw;}
-  body div.big-wrapper aside:last-child{width: 15vw;}
+  body div.big-wrapper div.laside {
+    left: -30.5vw;
+  }
+
+  body div.big-wrapper aside {
+    width: 15vw;
+  }
+
+  body div.big-wrapper aside:last-child {
+    width: 15vw;
+  }
 }
 
-body div.big-wrapper div.cards-holder{
+body div.big-wrapper div.cards-holder {
   display: none;
 }
 
-body.finished2 div.big-wrapper div.cards-holder{
+body.finished2 div.big-wrapper div.cards-holder {
   padding-top: 6rem;
   padding-left: calc(10vw + 3rem);
   display: flex;
-  animation: right-left 5s 1;
+  animation: right-left 2s 1;
 }
 
 @media screen and (max-width: 900px) {
-  body.finished2 div.big-wrapper div.cards-holder{padding-left: calc(11vw + 3rem);}
+  body.finished2 div.big-wrapper div.cards-holder {
+    padding-left: calc(11vw + 3rem);
+  }
 }
 
 @media screen and (max-width: 650px) {
-  body.finished2 div.big-wrapper div.cards-holder{padding-left: calc(13vw + 1rem);}
+  body.finished2 div.big-wrapper div.cards-holder {
+    padding-left: calc(13vw + 1rem);
+  }
 }
 
 @media screen and (max-width: 500px) {
-  body.finished2 div.big-wrapper div.cards-holder{
+  body.finished2 div.big-wrapper div.cards-holder {
     padding-left: calc(17vw + 1rem);
   }
 }
 
 @media screen and (max-width: 350px) {
-  body.finished2 div.big-wrapper div.cards-holder{padding-left: calc(21vw + 1rem);}
+  body.finished2 div.big-wrapper div.cards-holder {
+    padding-left: calc(21vw + 1rem);
+  }
 }
 
 @media screen and (max-width: 150px) {
-  body.finished2 div.big-wrapper div.cards-holder{padding-left: calc(30vw + 1rem);}
+  body.finished2 div.big-wrapper div.cards-holder {
+    padding-left: calc(30vw + 1rem);
+  }
 }
 
-div.cards-holder{
+div.cards-holder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-body.finished2 div.big-wrapper div.cards-holder{
+body.finished2 div.big-wrapper div.cards-holder {
   position: absolute;
   flex-direction: row;
   top: 0;
@@ -286,37 +366,37 @@ body.finished2 div.big-wrapper div.cards-holder{
   display: flex;
 }
 
-div.big-wrapper div.cards-holder > div.card{
+div.big-wrapper div.cards-holder>div.card {
   margin-top: 0;
   min-width: 400px;
   margin-right: 4rem;
 }
 
-div.big-wrapper{
+div.big-wrapper {
   min-width: 100vw;
   overflow-x: auto;
 }
 
 
 @media screen and (max-width: 650px) {
-  body.finished2 div.big-wrapper div.cards-holder{
+  body.finished2 div.big-wrapper div.cards-holder {
     flex-direction: column;
     padding-top: 6rem;
     position: relative;
     width: 100%;
   }
 
-  div.big-wrapper div.cards-holder > div.card{
+  div.big-wrapper div.cards-holder>div.card {
     min-width: 0;
     margin-right: 0;
     margin-bottom: 2.5rem;
   }
 
-  div.big-wrapper div.cards-holder > div.card:first-child{
+  div.big-wrapper div.cards-holder>div.card:first-child {
     margin-top: 1rem;
   }
 
-  div.big-wrapper{
+  div.big-wrapper {
     overflow: auto;
     min-width: 0;
     width: 100%
@@ -324,7 +404,7 @@ div.big-wrapper{
 }
 
 
-div.cards-holder > div.card{
+div.cards-holder>div.card {
   width: 80%;
   font-size: .5rem;
   padding: 1rem;
@@ -334,96 +414,140 @@ div.cards-holder > div.card{
   transition: box-shadow 1s;
 }
 
-div.cards-holder > div.card:first-child{
+div.cards-holder>div.card:first-child {
   margin-top: 1rem;
 }
 
-div.cards-holder > div.card:hover{
+div.cards-holder>div.card:hover {
   box-shadow: 0 0 15px 2px;
 }
 
-div.res-image{
+div.res-image {
   width: 100%;
   overflow: hidden;
   border-radius: .3rem;
 }
 
-div.res-image img{
+div.res-image img {
   width: 100%;
   object-fit: contain;
   border-radius: .3rem;
 }
 
-div.cards-holder > div.card div.card-info a{
+div.cards-holder>div.card div.card-info a {
   color: white;
   text-decoration: none;
 }
 
-div.card-info small{
+div.card-info small {
   text-align: right;
   display: block;
   padding-top: 1rem;
 }
 
-div.card-info h3{
+div.card-info h3 {
   padding-top: 1rem;
   font-size: 1.5rem;
 }
 
-div.card-info p{
+div.card-info p {
   padding-top: .5rem;
   font-size: 1rem;
 }
 
-div.card-info small{
+div.card-info small {
   font-size: 1rem;
 }
 
 @media screen and (max-width: 900px) {
-  div.card-info h3{font-size: 1.3rem;}
-  div.card-info p{font-size: .9rem;}
-  div.card-info small{font-size: .9rem;}
+  div.card-info h3 {
+    font-size: 1.3rem;
+  }
+
+  div.card-info p {
+    font-size: .9rem;
+  }
+
+  div.card-info small {
+    font-size: .9rem;
+  }
 }
 
-@media screen and (max-width: 700px) {
-}
+@media screen and (max-width: 700px) {}
 
 @media screen and (max-width: 500px) {
-  div.card-info h3{font-size: 1rem; padding-top: .5rem;}
-  div.card-info p{font-size: .8rem; padding-top: .25rem}
-  div.card-info small{font-size: .8rem; padding-top: .5rem}
+  div.card-info h3 {
+    font-size: 1rem;
+    padding-top: .5rem;
+  }
+
+  div.card-info p {
+    font-size: .8rem;
+    padding-top: .25rem
+  }
+
+  div.card-info small {
+    font-size: .8rem;
+    padding-top: .5rem
+  }
 }
 
 @media screen and (max-width: 350px) {
-  div.card-info h3{font-size: .8rem; padding-top: .25rem;}
-  div.card-info p{font-size: .5rem; padding-top: .125rem}
-  div.card-info small{font-size: .5rem; padding-top: .25rem}
+  div.card-info h3 {
+    font-size: .8rem;
+    padding-top: .25rem;
+  }
 
-  body.finished div.big-wrapper header h1{font-size: 1rem;}
+  div.card-info p {
+    font-size: .5rem;
+    padding-top: .125rem
+  }
+
+  div.card-info small {
+    font-size: .5rem;
+    padding-top: .25rem
+  }
+
+  body.finished div.big-wrapper header h1 {
+    font-size: 1rem;
+  }
 }
 
 @media screen and (max-width: 175px) {
-  div.card-info h3{font-size: .5rem; padding-top: .15rem;}
-  div.card-info p{font-size: .25rem; padding-top: .1rem}
-  div.card-info small{font-size: .25rem; padding-top: .15rem}
+  div.card-info h3 {
+    font-size: .5rem;
+    padding-top: .15rem;
+  }
 
-  div.card-info{
+  div.card-info p {
+    font-size: .25rem;
+    padding-top: .1rem
+  }
+
+  div.card-info small {
+    font-size: .25rem;
+    padding-top: .15rem
+  }
+
+  div.card-info {
     word-wrap: break-word;
   }
 
-  body.finished1 div.big-wrapper div.laside{
+  body.finished1 div.big-wrapper div.laside {
     display: none;
   }
 
-  body.finished2 div.big-wrapper div.cards-holder{
+  body.finished2 div.big-wrapper div.cards-holder {
     padding-left: 0;
   }
 }
 
-a.overlay-link{
+a.overlay-link {
   position: absolute;
-  top:0; bottom: 0;
-  left: 0; right: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 100%;
   width: 100%;
   border-radius: 1rem;
