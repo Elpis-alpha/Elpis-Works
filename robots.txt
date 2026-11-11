@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://little-works.elpis.cc/sitemap.xml
