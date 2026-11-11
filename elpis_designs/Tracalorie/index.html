@@ -4,86 +4,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Tracalorie | Meal & Calorie Tracker</title>
+  <title>Tracalorie | Meal and Calorie Tracker by Elpis</title>
+  <meta name="description" content="Track meals and calories with add, edit and delete, saved in your browser. A small vanilla JavaScript demo by Elpis.">
+  <meta name="theme-color" content="#ff69b4">
   <link rel="icon" href="/images/Elpis/logo32.png">
-  <meta name="description" content="Track meals and calories with add, edit and delete. A small vanilla JavaScript demo by Elpis.">
-  <style>body{padding-top:64px!important}</style>
+  <link rel="stylesheet" href="../fonts/rubik.css?v=20261111">
+  <link rel="stylesheet" href="../demo.css?v=20261111">
+  <link rel="stylesheet" href="style.css?v=20261111">
 </head>
 
 <body>
-  <a href="/" style="position:absolute;top:12px;left:12px;z-index:9999;padding:8px 14px;font:600 14px system-ui,sans-serif;color:#eaf3fa;background:rgba(0,25,42,.85);border:1px solid rgba(255,255,255,.25);border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.3)">&larr; Back to Elpis Works</a>
+  <a class="back-link" href="/">&larr; Back to Elpis Works</a>
 
-  <div class="card">
-
-    <nav>
+  <main class="card">
+    <header class="top">
       <h1>Tracalorie</h1>
-      <a href="#" id="clr-all">Clear All</a>
-    </nav>
+      <button type="button" id="clr-all" class="ghost" hidden>Clear all</button>
+    </header>
 
-    <div class="main-content">
+    <section class="total" aria-labelledby="total-label">
+      <p id="total-label" class="total-label">Total calories today</p>
+      <p class="total-num"><span id="total-calories">0</span> <span class="unit">kcal</span></p>
+      <div class="meter" aria-hidden="true"><span id="meter-fill"></span></div>
+      <p class="meter-note" id="meter-note">of a 2,000 kcal daily guide</p>
+    </section>
 
-      <div class="form">
+    <form id="meal-form" class="form" novalidate>
+      <h2 id="form-title">Add a meal</h2>
 
-        <span>Add Meal / Food Item</span>
+      <div class="form-box-holder">
+        <div class="form-box">
+          <label for="item-name">Meal or food</label>
+          <input type="text" autocomplete="off" placeholder="Oatmeal with banana" id="item-name">
+        </div>
 
-        <form>
-
-          <div class="form-box-holder">
-
-            <div class="form-box">
-
-              <label>Meal</label>
-              <input type="text" autocomplete="off" required placeholder="Add Item" id="item-name">
-
-            </div>
-
-            <div class="form-box">
-
-              <label>Calories</label>
-              <input type="number" autocomplete="off" required placeholder="Add Calories" id="item-calories">
-
-            </div>
-
-          </div>
-
-          <div class="buttons-holder">
-
-            <button id="meal-add">Add Meal</button>
-            <button id="meal-update">Update Meal</button>
-            <button id="meal-delete">Delete Meal</button>
-            <button id="meal-back">Back</button>
-
-          </div>
-
-        </form>
-
+        <div class="form-box">
+          <label for="item-calories">Calories</label>
+          <input type="number" min="1" step="1" inputmode="numeric" autocomplete="off" placeholder="350" id="item-calories">
+        </div>
       </div>
 
-      <div class="cal-count">
-        <h3>Total Calories:
-          <span id="total-calories">0</span>
-        </h3>
+      <p class="form-error" id="form-error" role="alert" hidden></p>
+
+      <div class="buttons-holder">
+        <button type="submit" id="meal-add" class="primary">Add meal</button>
+        <button type="submit" id="meal-update" class="primary" hidden>Save changes</button>
+        <button type="button" id="meal-delete" class="danger" hidden>Delete meal</button>
+        <button type="button" id="meal-back" class="ghost" hidden>Cancel</button>
       </div>
+    </form>
 
-      <ul id="item-list">
+    <ul id="item-list" class="items" aria-label="Meals"></ul>
+    <p id="empty" class="empty">No meals logged yet. Add your first one above.</p>
+  </main>
 
-        <!-- <li class="list-item" id="item-0">
-          <p><strong>Steak Dinner: </strong> 1200</p>
-          <a class='right-icon'>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            </svg>
-          </a>
-        </li> -->
-        
-      </ul>
-
-    </div>
-
-  </div>
-
-  <script src="app.js"></script>
-
+  <script src="app.js?v=20261111"></script>
 </body>
 
 </html>

@@ -6,8 +6,8 @@
       title: 'Book List',
       path: 'elpis_designs/Book List/ES6/index.html',
       image: 'images/book_list.jpg',
-      color: '#6f7f8f',
-      alt: 'Book List app: an Add Book form with title, author and ISBN fields above a table listing four books',
+      color: '#708090',
+      alt: 'Book List app: a white card on slate gray with title, author and ISBN fields, an Add book button and a table of three books',
       description: 'Add and delete books in a tidy table. Your list is saved to local storage.',
       tags: ['Storage', 'Forms']
     },
@@ -16,7 +16,7 @@
       path: 'elpis_designs/Chuck Norris Generator/index.html',
       image: 'images/chuck_norris.jpg',
       color: '#ffffff',
-      alt: 'Chuck Norris Joke Generator: a number input, a Get Jokes button and a list of three jokes',
+      alt: 'Chuck Norris Joke Generator: a bold heading, a number field set to 3, a blue Get jokes button and three numbered jokes',
       description: 'Pick how many jokes you want and fetch them from a local JSON API.',
       tags: ['API']
     },
@@ -24,8 +24,8 @@
       title: 'Elpis Dictionary',
       path: 'elpis_designs/Elpis Dictionary/index.html',
       image: 'images/elpis_dictionary.jpg',
-      color: '#9acc35',
-      alt: 'Elpis Dictionary: a search box with word match options and definitions for words starting with "critic" on a green background',
+      color: '#9acd32',
+      alt: 'Elpis Dictionary: a search for "verdant" on a green background, with match options and the definitions of verdant and verdantly',
       description: 'Search a dictionary by whole word, starting letters or any containing text.',
       tags: ['API', 'Tool']
     },
@@ -33,8 +33,8 @@
       title: 'Loan Calculator',
       path: 'elpis_designs/Loan Calculator/index.html',
       image: 'images/loan_calculator.jpg',
-      color: '#e99579',
-      alt: 'Loan Calculator: a dark red card with amount, interest and years filled in, a Calculate button and the monthly payment result',
+      color: '#e9967a',
+      alt: 'Loan Calculator: a dark red card with a $25,000 loan at 6.5% over 5 years, a monthly payment of $489.15 and a bar splitting principal from interest',
       description: 'Enter an amount, interest rate and term to see your repayment breakdown.',
       tags: ['Tool', 'Forms']
     },
@@ -43,7 +43,7 @@
       path: 'elpis_designs/Number Guesser/index.html',
       image: 'images/number_guesser.jpg',
       color: '#b258ca',
-      alt: 'Number Guesser: a purple card asking you to guess a number between 1 and 10, with a hint that the last guess was close',
+      alt: 'Number Guesser: a purple card with one guess left, a hint that says close, go lower, and two earlier guesses',
       description: 'A small guessing game that reacts to every attempt and tracks your progress.',
       tags: ['Game']
     },
@@ -52,8 +52,8 @@
       path: 'elpis_designs/Tasks/index.html',
       image: 'images/task_list.jpg',
       color: '#4c6180',
-      alt: 'Task List: a gray card with a New Task field, an Add Task button, a filter box, three tasks and a Clear Tasks button',
-      description: 'Add, remove and filter tasks, with everything saved in local storage.',
+      alt: 'Task List: a card on slate blue with a New task field, a filter box and three tasks, the first checked off',
+      description: 'Add, check off, filter and remove tasks, with everything saved in local storage.',
       tags: ['Storage', 'Tool']
     },
     {
@@ -61,7 +61,7 @@
       path: 'elpis_designs/Form Validation/index.html',
       image: 'images/form_validation.jpg',
       color: '#00ffff',
-      alt: 'Form Validation: a cyan form with name, zipcode, email and phone number fields, with an error shown under the invalid phone number',
+      alt: 'Form Validation: a sign-up form on cyan with name, ZIP code and phone marked valid and an error under the email field',
       description: 'A form that validates each field as you leave it, with instant feedback.',
       tags: ['Forms']
     },
@@ -69,8 +69,8 @@
       title: 'Tracalorie',
       path: 'elpis_designs/Tracalorie/index.html',
       image: 'images/tracalorie.jpg',
-      color: '#ff69b3',
-      alt: 'Tracalorie: a pink calorie tracker showing an Add Meal form, a total of 2200 calories and a list of three meals',
+      color: '#ff69b4',
+      alt: 'Tracalorie: a white card on pink showing 1,280 calories today with a progress bar, an Add a meal form and three logged meals',
       description: 'Track your calorie intake with add, edit and delete for every meal.',
       tags: ['Storage', 'Tool']
     }

@@ -4,73 +4,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>My Tasks</title>
+  <title>Task List by Elpis</title>
+  <meta name="description" content="Add, check off, filter and remove tasks saved in local storage. A small vanilla JavaScript demo by Elpis.">
+  <meta name="theme-color" content="#4c6180">
   <link rel="icon" href="/images/Elpis/logo32.png">
-  <meta name="description" content="Add, remove and filter tasks saved in local storage. A small vanilla JavaScript demo by Elpis.">
-  <style>body{padding-top:64px!important}</style>
+  <link rel="stylesheet" href="../fonts/manrope.css?v=20261111">
+  <link rel="stylesheet" href="../demo.css?v=20261111">
+  <link rel="stylesheet" href="style.css?v=20261111">
 </head>
 
 <body>
-  <a href="/" style="position:absolute;top:12px;left:12px;z-index:9999;padding:8px 14px;font:600 14px system-ui,sans-serif;color:#eaf3fa;background:rgba(0,25,42,.85);border:1px solid rgba(255,255,255,.25);border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.3)">&larr; Back to Elpis Works</a>
+  <a class="back-link" href="/">&larr; Back to Elpis Works</a>
 
-  <!-- <h1>JavaScript Sandbox: Section 2</h1> -->
+  <main class="tasks-card">
+    <section class="cards-input">
+      <h1>Task List</h1>
 
-  <div class="tasks-card">
+      <form id="task-form">
+        <label for="new-task">New task</label>
+        <div class="add-row">
+          <input type="text" id="new-task" autocomplete="off" placeholder="What needs doing?">
+          <button type="submit">Add task</button>
+        </div>
+        <p class="form-error" id="form-error" role="alert" hidden>Type a task first, then add it.</p>
+      </form>
+    </section>
 
-    <div class="cards-input">
-
-      <h3 id="tasks-input">Task List</h3>
-
-      <div class="card-form">
-
-        <form id="task-form">
-
-          <div class="new-task">
-
-            <label for="new-task">
-              New Task
-            </label>
-
-            <input type="text" name="new-task" id="new-task" autocomplete="off">
-
-          </div>
-
-          <input type="submit" value="Add Task">
-
-        </form>
-
+    <section class="cards-display" aria-labelledby="tasks-title">
+      <div class="list-head">
+        <h2 id="tasks-title">Tasks</h2>
+        <p class="summary" id="summary" aria-live="polite"></p>
       </div>
 
-    </div>
+      <label class="sr-only" for="filter">Filter tasks</label>
+      <input type="search" id="filter" autocomplete="off" placeholder="Filter tasks">
 
-    <div class="cards-display">
+      <ul class="collection" id="collection"></ul>
 
-      <h3 id="tasks-title">Tasks</h3>
+      <p class="empty" id="empty" hidden></p>
 
-      <div class="the-filter">
-
-        <input type="text" name="filter" id="filter" autocomplete="off" placeholder="Filter">
-
+      <div class="actions">
+        <button type="button" id="clear-done" class="link-btn" hidden>Clear completed</button>
+        <button type="button" id="clear-tasks" class="link-btn danger" hidden>Clear all tasks</button>
       </div>
+    </section>
+  </main>
 
-      <ul class="collection">
-
-        <!-- <li id="mend" class="brend">
-          <p>Elpis Thoughts</p>
-          <i class='delete-item'>x</i>
-        </li> -->
-
-      </ul>
-
-      <a href='#' id="clear-tasks">Clear Tasks</a>
-
-    </div>
-
-  </div>
-
-  <script src="app.js"></script>
-
+  <script src="app.js?v=20261111"></script>
 </body>
 
 </html>

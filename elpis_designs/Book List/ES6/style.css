@@ -1,117 +1,169 @@
-@font-face {
-  src: url(gab.ttf);
-  font-family: elpisFont;
+:root {
+  --page: #708090;
+  --card: #ffffff;
+  --ink: #1f2a33;
+  --muted: #56636e;
+  --line: #d9dee3;
+  --field: #f4f6f8;
+  --button: #2f3b46;
+  --ok: #1a7f37;
+  --bad: #b42318;
+  --serif: Newsreader, Georgia, 'Times New Roman', serif;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
-*{
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
   margin: 0;
-  padding: 0;
-  list-style-type: none;
-  font-size: 1rem;
-  position: relative;
-  font-family: elpisFont;
-  box-sizing: border-box;
-}
-
-body{
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
-  background-color: slategrey;
+  display: grid;
+  place-items: center;
+  padding: 72px 16px 32px;
+  background: var(--page);
+  color: var(--ink);
+  font: 1rem/1.5 var(--sans);
 }
 
-div.card{
-  border-radius: 2rem;
-  box-shadow: 0 0 10px 2px black;
+.card {
   width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 1rem;
-  padding-bottom: 2rem;
-  color: black;
+  max-width: 560px;
+  padding: clamp(1.25rem, 5vw, 2rem);
+  background: var(--card);
+  border-radius: 14px;
+  box-shadow: 0 2px 4px rgba(20, 30, 40, 0.12), 0 18px 40px rgba(20, 30, 40, 0.25);
 }
 
-form{
-  width: 80%;
+.card-head h1 {
+  margin: 0;
+  font: 600 2.1rem/1.1 var(--serif);
 }
+.card-head p { margin: 0.4rem 0 1.5rem; color: var(--muted); }
 
-form input{
-  display: block;
-  height: 2rem;
-  border-radius: .35em;
-  border: 1px solid black;
-  outline: 0;
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+@media (max-width: 460px) { form { grid-template-columns: 1fr; } }
+
+.field-wide, .submit-form { grid-column: 1 / -1; }
+
+label { display: block; margin-bottom: 0.3rem; font-size: 0.875rem; font-weight: 600; }
+
+input {
   width: 100%;
-  background-color: transparent;
-  padding-left: .4rem;
+  height: 44px;
+  padding: 0 0.75rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  transition: border-color 0.15s, background-color 0.15s;
 }
+input::placeholder { color: #8a96a0; }
+input:hover { border-color: #b4bdc5; }
+input:focus { outline: none; border-color: var(--button); background: #fff; box-shadow: 0 0 0 3px rgba(47, 59, 70, 0.18); }
+input[aria-invalid='true'] { border-color: var(--bad); }
 
-form label{
-  font-weight: bold;
-}
-
-h1{
-  font-size: 1.5rem;
-}
-
-form div{
-  padding-bottom: 1rem;
-}
-
-table{
-  width: 80%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-th{
-  border-bottom: 2px solid black;
-}
-
-.submit-form{
-  padding: 0;
-  background-color: rgb(66, 73, 80);
+.submit-form {
+  height: 46px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--button);
   border: 0;
+  border-radius: 8px;
   cursor: pointer;
-  transition: box-shadow .5s;
+  transition: background-color 0.15s;
 }
+.submit-form:hover { background: #1f2a33; }
+.submit-form:focus-visible { outline: 3px solid var(--button); outline-offset: 2px; }
 
-.submit-form:hover{
-  box-shadow: 0 0 5px 1px rgb(66, 73, 80);
+.alerts { min-height: 0; }
+.alert {
+  margin: 1rem 0 0;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.925rem;
+  font-weight: 600;
+  animation: drop 0.2s ease-out;
 }
+.alert.success { color: var(--ok); background: #e7f5ec; }
+.alert.error { color: var(--bad); background: #fdecea; }
+@keyframes drop { from { opacity: 0; transform: translateY(-4px); } }
 
-.success, .error{
-  color: white;
-  padding: 5px;
-  margin: 5px 0 15px 0;
-  width: 80%;
-  border-radius: .5rem;
+.shelf { margin-top: 1.75rem; }
+.shelf h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  font: 600 1.35rem/1.2 var(--serif);
+}
+.count {
+  min-width: 1.6rem;
+  padding: 0 0.45rem;
+  font: 600 0.8rem/1.6rem var(--sans);
   text-align: center;
+  color: var(--muted);
+  background: var(--field);
+  border-radius: 999px;
 }
 
-.success{
-  background-color: green;
-}
+.table-wrap { overflow-x: auto; }
 
-.error{
-  background-color: red;
+table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+th {
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom: 2px solid var(--ink);
 }
-
-td{
-  border-bottom: .5px solid rgb(65, 65, 65);
-  word-break: break-all;
+td {
+  padding: 0.65rem 0.5rem 0.65rem 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  overflow-wrap: anywhere;
 }
+td:first-child { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; }
+td.isbn { font-variant-numeric: tabular-nums; color: var(--muted); }
+td:last-child, th:last-child { width: 2.5rem; padding-right: 0; text-align: right; }
+tbody tr { animation: drop 0.2s ease-out; }
 
-td:first-child, th:first-child{
-  padding-left: .5rem;
+.delete {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
 }
+.delete:hover { color: var(--bad); background: #fdecea; }
+.delete:focus-visible { outline: 2px solid var(--bad); outline-offset: 1px; }
 
-a.delete{
-  color: crimson;
-  text-decoration: none;
+.empty { margin: 1rem 0 0; color: var(--muted); font-style: italic; }
+
+/* Small screens: stack each book (title, then author and ISBN) instead of squeezing four columns. */
+@media (max-width: 480px) {
+  thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  tbody tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'title del' 'author del' 'isbn del';
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  td { padding: 0; border: 0; }
+  td:first-child { grid-area: title; }
+  td:nth-child(2) { grid-area: author; font-size: 0.9rem; }
+  td.isbn { grid-area: isbn; font-size: 0.85rem; }
+  td:last-child { grid-area: del; align-self: center; width: auto; }
 }

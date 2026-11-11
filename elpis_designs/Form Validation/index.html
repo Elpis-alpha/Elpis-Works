@@ -4,77 +4,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
   <title>Form Validation by Elpis</title>
+  <meta name="description" content="A form that checks name, ZIP code, email and phone number as you fill it in. A small vanilla JavaScript demo by Elpis.">
+  <meta name="theme-color" content="#00ffff">
   <link rel="icon" href="/images/Elpis/logo32.png">
-  <meta name="description" content="A form that validates name, zipcode, email and phone number on blur. A small vanilla JavaScript demo by Elpis.">
-  <style>body{padding-top:64px!important}</style>
+  <link rel="stylesheet" href="../fonts/space-grotesk.css?v=20261111">
+  <link rel="stylesheet" href="../demo.css?v=20261111">
+  <link rel="stylesheet" href="style.css?v=20261111">
 </head>
 
 <body>
-  <a href="/" style="position:absolute;top:12px;left:12px;z-index:9999;padding:8px 14px;font:600 14px system-ui,sans-serif;color:#eaf3fa;background:rgba(0,25,42,.85);border:1px solid rgba(255,255,255,.25);border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.3)">&larr; Back to Elpis Works</a>
+  <a class="back-link" href="/">&larr; Back to Elpis Works</a>
 
-  <div class="card">
+  <main class="card">
+    <h1>Sign up</h1>
+    <p class="sub">Each field is checked when you leave it.</p>
 
-    <form>
-
+    <form id="signup" novalidate>
       <div class="form-x">
-
         <label for="name">Name</label>
-
-        <input type="text" required autocomplete="off" placeholder="Name" id="name">
-
-        <div class="red-alert">
-          Name must be between 2 and 10 characters
-        </div>
-
-
+        <input type="text" id="name" autocomplete="name" aria-describedby="name-hint">
+        <p class="hint" id="name-hint" data-hint="2 to 30 letters. Spaces, hyphens and apostrophes are fine.">2 to 30 letters. Spaces, hyphens and apostrophes are fine.</p>
       </div>
 
       <div class="form-x">
-
-        <label for="zipcode">Zipcode</label>
-
-        <input type="text" required autocomplete="off" placeholder="Zipcode" id="zipcode">
-
-        <div class="red-alert">
-          Enter a valid Zipcode
-        </div>
-
+        <label for="zipcode">ZIP code</label>
+        <input type="text" id="zipcode" autocomplete="postal-code" inputmode="numeric" aria-describedby="zipcode-hint">
+        <p class="hint" id="zipcode-hint" data-hint="5 digits, for example 94107 or 94107-1234.">5 digits, for example 94107 or 94107-1234.</p>
       </div>
 
       <div class="form-x">
-
         <label for="email">Email</label>
-
-        <input type="text" required autocomplete="off" placeholder="Email" id="email">
-
-        <div class="red-alert">
-          Enter a valid Email
-        </div>
-
+        <input type="email" id="email" autocomplete="email" aria-describedby="email-hint">
+        <p class="hint" id="email-hint" data-hint="For example ada@example.com.">For example ada@example.com.</p>
       </div>
 
       <div class="form-x">
-
-        <label for="phone">Phone Number</label>
-
-        <input type="text" required autocomplete="off" placeholder="Phone Number" id="phone">
-
-        <div class="red-alert">
-          Enter a valid Phone Number
-        </div>
-
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" autocomplete="tel" aria-describedby="phone-hint">
+        <p class="hint" id="phone-hint" data-hint="A Nigerian number, for example 0803 123 4567 or +234 803 123 4567.">A Nigerian number, for example 0803 123 4567 or +234 803 123 4567.</p>
       </div>
 
-      <input type="submit" value="Submit" id="submit">
-
+      <button type="submit" id="submit">Sign up</button>
     </form>
 
-  </div>
+    <div id="done" class="done" hidden tabindex="-1">
+      <h2>Everything checks out</h2>
+      <p id="done-msg"></p>
+      <button type="button" id="again">Fill in the form again</button>
+    </div>
+  </main>
 
-  <script src="app.js"></script>
-
+  <script src="app.js?v=20261111"></script>
 </body>
 
 </html>

@@ -1,101 +1,119 @@
-// Game Values 
-let min = 1;
+// Game values
+const min = 1
+const max = 10
+const totalGuesses = 3
 
-let max = 10;
+let winningNum
+let guessesLeft
+let over
 
-let winningNum = getRandomNum(min, max)
-
-let guesses = 3
-
-
-// UI Lements
-const game = document.querySelector('#game')
-
-const minNum = document.querySelector('.min-num')
-
-const maxNum = document.querySelector('.max-num')
-
+// UI elements
+const form = document.querySelector('#guess-form')
 const guessBtn = document.querySelector('#guess-btn')
-
 const guessInput = document.querySelector('#guess-input')
+const message = document.querySelector('#message')
+const pips = document.querySelector('#pips')
+const livesText = document.querySelector('#lives-text')
+const historyEl = document.querySelector('#history')
 
-const message = document.querySelector('.message')
-
-const form = document.querySelector('.form-holder')
-
-
-// Assign UI min and max
-minNum.textContent = min
-
-maxNum.textContent = max
-
-
-// Event Listeners 
-guessBtn.addEventListener('click', function () {
-
-  let guess = parseInt(guessInput.value)
-
-  // Validate
-  if (isNaN(guess) || guess < min || guess > max) {
-    setMessage(`Please enter a number between ${min} and ${max}`, 'black', 'underline')
-  } else {
-    // If won
-    if (guess === winningNum) {
-      gameOver(true, `You have guessed the right number, ${winningNum} is correct`)
-    } else {
-      // Wrong Number
-      guesses -= 1
-
-      if (guesses === 0) {
-        gameOver(false, `Game Over, you lost. The correct number was ${winningNum}`)
-      } else {
-        if (Math.abs(guess - winningNum) <= 3) {
-          setMessage(`You are close but ${guess} is not correct, ${guesses} guesses left`, 'yellow', 'underline')
-        } else {
-          setMessage(`You are far, ${guess} is not correct, ${guesses} guesses left`, 'yellow', 'underline')
-        }
-      }
-    }
-  }
-  guessInput.value = '';
-})
-
-game.addEventListener('mousedown', function (e) {
-  if (e.target.className === 'play-again') {
-    guessInput.disabled = false
-    window.location.reload();
-  }
-})
+document.querySelector('.min-num').textContent = min
+document.querySelector('.max-num').textContent = max
+guessInput.min = min
+guessInput.max = max
 
 form.addEventListener('submit', function (e) {
-  e.preventDefault();
+  e.preventDefault()
+  if (over) {
+    newGame()
+    return
+  }
+
+  const guess = Number(guessInput.value)
+
+  if (guessInput.value.trim() === '' || !Number.isInteger(guess) || guess < min || guess > max) {
+    setMessage(`Enter a whole number from ${min} to ${max}.`, 'hint')
+    shake()
+    guessInput.select()
+    return
+  }
+
+  if (guess === winningNum) {
+    addHistory(guess, true)
+    gameOver(true, `${winningNum} is right. You got it in ${totalGuesses - guessesLeft + 1}!`)
+    return
+  }
+
+  guessesLeft -= 1
+  addHistory(guess, false)
+  renderLives()
+
+  if (guessesLeft === 0) {
+    gameOver(false, `Out of guesses. The number was ${winningNum}.`)
+    return
+  }
+
+  const direction = guess < winningNum ? 'higher' : 'lower'
+  const close = Math.abs(guess - winningNum) <= 2 ? 'Close! ' : ''
+  const left = guessesLeft === 1 ? '1 guess left' : `${guessesLeft} guesses left`
+  setMessage(`${close}${guess} is not it. Go ${direction}. ${left}.`, 'hint')
+  shake()
+  guessInput.value = ''
+  guessInput.focus()
 })
 
-window.addEventListener('load', function (e) {
-  guessInput.disabled = false;
-})
-
-function getRandomNum(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
+function newGame() {
+  winningNum = getRandomNum(min, max)
+  guessesLeft = totalGuesses
+  over = false
+  guessInput.disabled = false
+  guessInput.value = ''
+  guessBtn.textContent = 'Guess'
+  historyEl.innerHTML = ''
+  setMessage('', '')
+  renderLives()
+  guessInput.focus()
 }
 
-// Send Message
-function setMessage(msg, color, decor) {
-  message.textContent = msg;
-  message.style.color = color;
-  message.style.textDecoration = decor;
+function getRandomNum(lo, hi) {
+  return Math.floor(Math.random() * (hi - lo + 1) + lo)
 }
 
-// Game Over
+function setMessage(msg, cls) {
+  message.textContent = msg
+  message.className = 'message ' + cls
+}
+
+function renderLives() {
+  pips.innerHTML = ''
+  for (let i = 0; i < totalGuesses; i++) {
+    const pip = document.createElement('span')
+    pip.className = 'pip' + (i >= guessesLeft ? ' used' : '')
+    pips.appendChild(pip)
+  }
+  livesText.textContent = `${guessesLeft} of ${totalGuesses}`
+}
+
+function addHistory(guess, right) {
+  const li = document.createElement('li')
+  li.textContent = right ? `${guess} ✓` : `${guess} ${guess < winningNum ? '↑' : '↓'}`
+  li.setAttribute('aria-label', right ? `${guess}, correct` : `${guess}, ${guess < winningNum ? 'too low' : 'too high'}`)
+  if (right) li.className = 'right'
+  historyEl.appendChild(li)
+}
+
+function shake() {
+  form.classList.remove('shake')
+  void form.offsetWidth
+  form.classList.add('shake')
+}
+
 function gameOver(won, msg) {
-  let color
-  won === true ? (color = 'greenyellow', decor = 'none') : (color = 'black', decor = 'underline')
-
-  guessInput.disabled = true;
-
-  setMessage(msg, color, decor)
-
-  guessBtn.value = 'Play Again';
-
-  guessBtn.className += 'play-again';
+  over = true
+  guessInput.disabled = true
+  guessInput.value = ''
+  setMessage(msg, won ? 'won' : 'lost')
+  guessBtn.textContent = 'Play again'
+  guessBtn.focus()
 }
+
+newGame()

@@ -1,100 +1,79 @@
-// Listen for submit
+// UI vars
+const form = document.getElementById('loan-form')
+const amount = document.getElementById('amount')
+const interest = document.getElementById('interest')
+const years = document.getElementById('years')
+const errorBox = document.getElementById('error')
+const results = document.getElementById('results')
 
-document.getElementById('loan-form').addEventListener('submit',
-  function (e) {
-    // Hide Results
-    document.querySelector('.results').style.display = 'none'
+const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
-    // Show Loader
-    document.getElementById('loading').style.display = 'block'
+form.addEventListener('submit', function (e) {
+  e.preventDefault()
+  calculateResults(true)
+})
 
-    setTimeout(calculateResults, 2000)
+// Once results are showing, keep them in sync while the numbers change.
+form.addEventListener('input', function () {
+  if (!results.hidden) calculateResults(false)
+})
 
-    e.preventDefault()
+function calculateResults(fromSubmit) {
+  const principal = parseFloat(amount.value)
+  const yearlyRate = parseFloat(interest.value)
+  const term = parseFloat(years.value)
+
+  const problems = []
+  if (!(principal > 0)) problems.push([amount, 'Enter a loan amount above 0.'])
+  if (!(yearlyRate >= 0)) problems.push([interest, 'Enter an interest rate of 0 or more.'])
+  if (!(term >= 1 && term <= 50)) problems.push([years, 'Enter a term between 1 and 50 years.'])
+
+  ;[amount, interest, years].forEach(input => {
+    input.setAttribute('aria-invalid', String(problems.some(p => p[0] === input)))
   })
 
-// Calculate Results
-function calculateResults() {
-
-  // UI Vars
-  const amount = document.getElementById('amount')
-
-  const intrest = document.getElementById('intrest')
-
-  const years = document.getElementById('years')
-
-  const monthlyPayment = document.getElementById('monthly-payment')
-
-  const totalPayment = document.getElementById('total-payment')
-
-  const totalIntrest = document.getElementById('total-intrest')
-
-
-  // Calculated constants
-
-  const principal = parseFloat(amount.value)
-
-  const calculatedIntrest = parseFloat(intrest.value) / 100 / 12
-
-  const calculatedPayments = parseFloat(years.value) * 12
-
-
-  // Monthly Payment
-
-  const x = Math.pow(1 + calculatedIntrest, calculatedPayments)
-
-  const monthly = (principal * x * calculatedIntrest) / (x - 1)
-
-
-  // Finite Conditional
-
-  if (isFinite(monthly)) {
-    monthlyPayment.value = monthly.toFixed(2);
-    totalPayment.value = (monthly * calculatedPayments).toFixed(2);
-    totalIntrest.value = ((monthly * calculatedPayments) - principal).toFixed(2)
-
-    // Hide Results
-    document.querySelector('.results').style.display = 'block'
-
-    // Show Loader
-    document.getElementById('loading').style.display = 'none'
-
-  } else {
-    showError('Please check your numbers')
+  if (problems.length) {
+    results.hidden = true
+    if (fromSubmit) {
+      showError(problems[0][1])
+      problems[0][0].focus()
+    }
+    return
   }
+  hideError()
+
+  // Monthly payment on an amortised loan
+  const rate = yearlyRate / 100 / 12
+  const payments = Math.round(term * 12)
+  const monthly = rate === 0
+    ? principal / payments
+    : (principal * rate * Math.pow(1 + rate, payments)) / (Math.pow(1 + rate, payments) - 1)
+
+  if (!isFinite(monthly)) {
+    results.hidden = true
+    showError('Those numbers are too large to calculate. Try a smaller amount or rate.')
+    return
+  }
+
+  const total = monthly * payments
+  const totalInterest = total - principal
+
+  document.getElementById('monthly-payment').textContent = money.format(monthly)
+  document.getElementById('principal-out').textContent = money.format(principal)
+  document.getElementById('total-interest').textContent = money.format(totalInterest)
+  document.getElementById('total-payment').textContent = money.format(total)
+  document.getElementById('bar-principal').style.flexGrow = principal
+  document.getElementById('bar-interest').style.flexGrow = totalInterest
+
+  results.hidden = false
 }
 
-
-// Show Error
-function showError(error) {
-  
-  // Hide Results
-  document.querySelector('.results').style.display = 'none'
-
-  // Show Loader
-  document.getElementById('loading').style.display = 'none'
-
-  const card = document.querySelector('.card')
-
-  const heading = document.querySelector('.heading')
-
-  const errorDiv = document.createElement('div');
-
-  errorDiv.className = 'danger-alert'
-
-  errorDiv.appendChild(document.createTextNode(error));
-
-  // Insert Error
-
-  card.insertBefore(errorDiv, heading)
-
-
-  // Clear Error
-  setTimeout(clearError, 3000)
+function showError(message) {
+  errorBox.textContent = message
+  errorBox.hidden = false
 }
 
-
-// Clear Error
-function clearError() {
-  document.querySelector('.danger-alert').remove();
+function hideError() {
+  errorBox.hidden = true
+  errorBox.textContent = ''
 }

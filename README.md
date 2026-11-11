@@ -15,12 +15,16 @@ index.html      landing page (SEO metadata, JSON-LD, noscript fallback)
 style.css       theme tokens (dark/light), layout, components
 app.js          project data, card rendering, search/filter, theme toggle
 elpis_designs/  one folder per demo app
+  demo.css      shared back-to-landing link used by every demo
+  fonts/        self-hosted demo typefaces (woff2) and their OFL.txt license
 images/         card screenshots and brand assets
-Fonts/          display fonts
+Fonts/          landing page display font
 docs/PLAN.md    upgrade plan
 ```
 
 To add a project, put it in `elpis_designs/`, add a screenshot to `images/`, and add an entry to the `projects` array in `app.js` (plus `index.html` noscript list, JSON-LD and `sitemap.xml`). Set its `color` to the screenshot's edge color; it fills the card behind the screenshot.
+
+When you change a CSS or JS file, bump the `?v=` query on its `<link>`/`<script>` so browsers don't pair new HTML with a cached old file.
 
 ## Run locally
 

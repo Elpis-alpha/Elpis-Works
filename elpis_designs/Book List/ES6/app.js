@@ -1,154 +1,150 @@
 const form = document.querySelector('#book-form')
-
-const table = document.querySelector('#book-list')
-
+const list = document.querySelector('#book-list')
+const fields = {
+  title: document.querySelector('#title'),
+  author: document.querySelector('#author'),
+  isbn: document.querySelector('#isbn')
+}
 
 class Book {
   constructor(title, author, isbn) {
-    this.title = title;
-    this.author = author;
-    this.isbn = isbn;
+    this.title = title
+    this.author = author
+    this.isbn = isbn
   }
 }
 
 class UI {
-  addBookToList(book) {
-    const list = document.querySelector('#book-list')
-
+  static addBookToList(book) {
     const row = document.createElement('tr')
+    row.dataset.isbn = book.isbn
 
-    row.innerHTML = `
-      <td>${book.title}</td>
-      <td>${book.author}</td>
-      <td>${book.isbn}</td>
-      <td><a href='#' class='delete'>X</a></td>
-    `
+    for (const key of ['title', 'author', 'isbn']) {
+      const td = document.createElement('td')
+      td.textContent = book[key]
+      if (key === 'isbn') td.className = 'isbn'
+      row.appendChild(td)
+    }
+
+    const cell = document.createElement('td')
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className = 'delete'
+    btn.textContent = '×'
+    btn.setAttribute('aria-label', `Remove ${book.title}`)
+    cell.appendChild(btn)
+    row.appendChild(cell)
 
     list.appendChild(row)
+    UI.updateCount()
   }
 
-  showAlert(msg, cls) {
-    const div = document.createElement('div')
-
+  static showAlert(msg, cls) {
+    const box = document.querySelector('#alerts')
+    clearTimeout(UI.alertTimer)
+    box.innerHTML = ''
+    const div = document.createElement('p')
     div.className = `alert ${cls}`
-
-    div.appendChild(document.createTextNode(msg))
-
-    const card = document.querySelector('.card')
-
-    const form = document.querySelector('#book-form')
-
-    card.insertBefore(div, form)
-
-    setTimeout(function () {
-      document.querySelector('.alert').remove()
-    }, 3000)
+    div.textContent = msg
+    box.appendChild(div)
+    UI.alertTimer = setTimeout(() => { box.innerHTML = '' }, 3000)
   }
 
-  deleteBook(target) {
-    if (target.className === 'delete') {
-      const ui = new UI();
-
-      target.parentElement.parentElement.remove();
-
-      ui.showAlert('Book Removed', 'success')
-    }
+  static deleteBook(row) {
+    const title = row.firstElementChild.textContent
+    row.remove()
+    UI.updateCount()
+    UI.showAlert(`Removed “${title}”`, 'success')
   }
 
-  clearFields() {
-    document.querySelector('#title').value = ''
+  static updateCount() {
+    const n = list.children.length
+    document.querySelector('#book-count').textContent = n
+    document.querySelector('#empty').hidden = n > 0
+  }
 
-    document.querySelector('#author').value = ''
-
-    document.querySelector('#isbn').value = ''
+  static clearFields() {
+    Object.values(fields).forEach(f => {
+      f.value = ''
+      f.removeAttribute('aria-invalid')
+    })
+    fields.title.focus()
   }
 }
 
 class Store {
-  static getBook() {
-    let books;
-
-    if (localStorage.getItem('books') === null) {
-      books = []
+  static getBooks() {
+    try {
+      return JSON.parse(localStorage.getItem('books')) || []
+    } catch (e) {
+      return []
     }
-    else {
-      books = JSON.parse(localStorage.getItem('books'));
-    }
+  }
 
-    return books
+  static save(books) {
+    try { localStorage.setItem('books', JSON.stringify(books)) } catch (e) { /* storage unavailable */ }
   }
 
   static displayBooks() {
-    const books = Store.getBook()
-
-    books.forEach(function (book) {
-      const ui = new UI();
-
-      ui.addBookToList(book)
-    })
+    Store.getBooks().forEach(book => UI.addBookToList(book))
+    UI.updateCount()
   }
 
   static addBook(book) {
-    const books = Store.getBook()
-
+    const books = Store.getBooks()
     books.push(book)
+    Store.save(books)
+  }
 
-    localStorage.setItem('books', JSON.stringify(books))
+  static hasIsbn(isbn) {
+    return Store.getBooks().some(book => book.isbn === isbn)
   }
 
   static removeBook(isbn) {
-    const books = Store.getBook()
-
-    books.forEach(function (book, index) {
-      if (book.isbn === isbn) {
-        books.splice(index, 1);
-      }
-    })
-
-    localStorage.setItem('books', JSON.stringify(books))
+    const books = Store.getBooks()
+    const i = books.findIndex(book => book.isbn === isbn)
+    if (i !== -1) books.splice(i, 1)
+    Store.save(books)
   }
 }
 
-// Event Listeners
+// Event listeners
 document.addEventListener('DOMContentLoaded', Store.displayBooks)
 
 form.addEventListener('submit', function (e) {
   e.preventDefault()
 
-  const title = document.querySelector('#title').value
+  const title = fields.title.value.trim()
+  const author = fields.author.value.trim()
+  const isbn = fields.isbn.value.trim()
 
-  const author = document.querySelector('#author').value
+  const missing = Object.entries({ title, author, isbn }).filter(([, v]) => v === '').map(([k]) => k)
+  Object.keys(fields).forEach(k => fields[k].setAttribute('aria-invalid', String(missing.includes(k))))
 
-  const isbn = document.querySelector('#isbn').value
-
-  const book = new Book(title, author, isbn);
-
-  const ui = new UI();
-
-  if (title === '' || author === '' || isbn === '') {
-    ui.showAlert('Please fill in all fields', 'error')
-  }
-  else {
-    ui.addBookToList(book);
-
-    Store.addBook(book)
-
-    ui.showAlert('Book Added', 'success')
-
-    ui.clearFields();
+  if (missing.length) {
+    UI.showAlert('Fill in the title, author and ISBN to add a book.', 'error')
+    fields[missing[0]].focus()
+    return
   }
 
-  e.preventDefault();
+  if (Store.hasIsbn(isbn)) {
+    fields.isbn.setAttribute('aria-invalid', 'true')
+    UI.showAlert(`A book with ISBN ${isbn} is already on your list.`, 'error')
+    fields.isbn.focus()
+    return
+  }
+
+  const book = new Book(title, author, isbn)
+  UI.addBookToList(book)
+  Store.addBook(book)
+  UI.showAlert(`Added “${title}”`, 'success')
+  UI.clearFields()
 })
 
-table.addEventListener('click', function (e) {
-  e.preventDefault()
-
-  const ui = new UI();
-
-  ui.deleteBook(e.target);
-
-  Store.removeBook(e.target.parentElement.previousElementSibling.textContent)
-
-  e.preventDefault()
+list.addEventListener('click', function (e) {
+  const btn = e.target.closest('.delete')
+  if (!btn) return
+  const row = btn.closest('tr')
+  Store.removeBook(row.dataset.isbn)
+  UI.deleteBook(row)
 })

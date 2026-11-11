@@ -1,100 +1,91 @@
-@font-face{
-  src: url(font/Hein.ttf);
-  font-family: mainFont;
+:root {
+  --page: #00ffff;
+  --card: #ffffff;
+  --ink: #062a2e;
+  --muted: #4b6467;
+  --line: #b7dfe2;
+  --teal: #007c85;
+  --teal-dark: #005f66;
+  --field: #f2fbfb;
+  --bad: #c0262d;
+  --ok: #137a3a;
+  --font: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
-*{
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
   margin: 0;
-  padding: 0;
-  list-style-type: none;
-  font-size: 1rem;
-  position: relative;
-  box-sizing: border-box;
-}
-
-::placeholder{
-  font-family: mainFont;
-}
-
-body{
-  background-color: cyan;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
-  font-family: mainFont;
+  display: grid;
+  place-items: center;
+  padding: 72px 16px 32px;
+  background: var(--page);
+  color: var(--ink);
+  font: 1rem/1.5 var(--font);
 }
 
-div.card{
-  box-shadow: 0 0 10px 1px black;
-  padding: 1rem;
-  width: 80%;
-  max-width: 500px;
-}
-
-div.form-x{
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-div.form-x:first-child{
-  padding-top: 1rem;
-}
-
-div.red-alert{
-  opacity: 0;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  font-size: .8rem;
-  color: red;
-  transition: opacity .5s;
-}
-
-input.show-alert + div.red-alert{
-  opacity: 1;
-}
-
-label{
-  font-weight: bold;
-  padding-bottom: .2rem;
-}
-
-div.form-x > input{
+.card {
   width: 100%;
-  padding: .5rem;
-  outline: 0;
-  border-radius: .5rem;
-  border: 1px solid cyan;
-  background-color: rgb(161, 252, 252);
-  font-family: mainFont;
-  transition: box-shadow .5s;
+  max-width: 460px;
+  padding: clamp(1.25rem, 5vw, 2rem);
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 8px 8px 0 var(--ink);
 }
 
-div.form-x > input:focus{
-  box-shadow: 0 0 5px 1px;
-}
+h1 { margin: 0; font-size: 2rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+.sub { margin: 0.35rem 0 1.5rem; color: var(--muted); }
 
-input#submit{
+.form-x { margin-bottom: 1.1rem; }
+
+label { display: block; margin-bottom: 0.3rem; font-weight: 700; }
+
+.form-x input {
   width: 100%;
-  padding: .5rem;
-  outline: 0;
-  border-radius: .5rem;
-  border: 0;
-  background-color: rgb(161, 252, 252);
-  font-family: mainFont;
-  transition: box-shadow .5s;
+  height: 46px;
+  padding: 0 2.5rem 0 0.8rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--field) no-repeat right 0.8rem center / 18px 18px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-x input:hover { border-color: #8cc7cc; }
+.form-x input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0, 124, 133, 0.2); }
+
+.form-x input[aria-invalid='true'] {
+  border-color: var(--bad);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23c0262d'/%3E%3Cpath d='M12 7v6M12 16.5v.5' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.form-x input[aria-invalid='false'] {
+  border-color: var(--ok);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23137a3a'/%3E%3Cpath d='m7.5 12.5 3 3 6-6.5' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.hint { margin: 0.3rem 0 0; font-size: 0.85rem; color: var(--muted); }
+.hint.error { color: var(--bad); font-weight: 500; }
+
+button {
+  width: 100%;
+  height: 48px;
+  margin-top: 0.4rem;
+  font: 700 1rem var(--font);
+  color: #fff;
+  background: var(--teal);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.15s, transform 0.1s, box-shadow 0.1s;
+  box-shadow: 3px 3px 0 var(--ink);
 }
+button:hover { background: var(--teal-dark); }
+button:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
 
-input#zipcode{
-  font-family: gabriola;
-}
-
-input#submit:hover{
-  box-shadow: 0 0 5px 1px;
-}
+.done { text-align: left; }
+.done:focus { outline: none; }
+.done h2 { margin: 0 0 0.4rem; font-size: 1.5rem; color: var(--ok); }
+.done p { margin: 0 0 1.25rem; }

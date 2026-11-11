@@ -1,201 +1,162 @@
-// Define UI Variables
-
+// UI elements
 const form = document.querySelector('#task-form')
-
-const taskList = document.querySelector('.collection')
-
-const clearBtn = document.querySelector('#clear-tasks')
-
-const filter = document.querySelector('#filter')
-
 const taskInput = document.querySelector('#new-task')
-
-
-
-// Load all Events
-
-loadEventListeners();
-
-
-
-// Define loadEventListeners
-
-function loadEventListeners() {
-
-  // Display tasks on ul
-  document.addEventListener('DOMContentLoaded', getTasks)
-
-  function getTasks(e) {
-    let tasks = localStorage.getItem('tasks')
-
-    if (tasks === null) {
-      tasks = []
-    } else {
-      tasks = JSON.parse(tasks)
-    }
-
-    tasks.forEach(function (task) {
-      // Create list item
-      const li = document.createElement('li')
-
-      li.className = 'brend'
-      li.id = 'mend'
-
-      li.appendChild(document.createTextNode(task))
-
-
-      // create the x -- i
-      const link = document.createElement('i')
-
-      link.className = 'delete-item'
-
-      link.appendChild(document.createTextNode('x'))
-
-
-      // Put link in li
-      li.appendChild(link)
-
-
-      // Put li in ul
-      taskList.appendChild(li)
-    })
-  }
-
-  // Add task Event
-  form.addEventListener('submit', addTask)
-
-  function addTask(e) {
-    if (taskInput.value === '') {
-      alert('You need to add a task')
-    } else {
-
-
-      // Create list item
-      const li = document.createElement('li')
-
-      li.className = 'brend'
-      li.id = 'mend'
-
-      li.appendChild(document.createTextNode(taskInput.value))
-
-
-      // create the x -- i
-      const link = document.createElement('i')
-
-      link.className = 'delete-item'
-
-      link.appendChild(document.createTextNode('x'))
-
-
-      // Put link in li
-      li.appendChild(link)
-
-
-      // Put li in ul
-      taskList.appendChild(li)
-
-
-      // Store in Local Storage
-      storeTaskInLocalStorage(taskInput.value)
-
-
-      // Clear input
-      taskInput.value = ''
-    }
-
-    e.preventDefault();
-  }
-
-
-  // Store Task
-  function storeTaskInLocalStorage(task) {
-    let tasks = localStorage.getItem('tasks')
-
-    if (tasks === null) {
-      tasks = []
-    } else {
-      tasks = JSON.parse(tasks)
-    }
-
-    tasks.push(task)
-
-    tasks = JSON.stringify(tasks)
-
-    localStorage.setItem('tasks', tasks)
-  }
-
-
-  // Remove task Event
-  taskList.addEventListener('click', removeTask)
-
-  function removeTask(e) {
-    if (e.target.classList.contains('delete-item')) {
-      if (confirm('Are you sure?')) {
-        e.target.parentElement.remove();
-
-        // Remove from LS
-        removeTaskFromLocalStorage(e.target.parentElement)
-      }
-    }
-  }
-
-
-  //Remove from LS
-  function removeTaskFromLocalStorage(taskItem) {
-    let tasks = localStorage.getItem('tasks')
-
-    if (tasks === null) {
-      tasks = []
-    } else {
-      tasks = JSON.parse(tasks)
-    }
-
-    itemContent = taskItem.textContent
-
-    itemContent = itemContent.slice(0, itemContent.length - 1)
-
-    tasks.forEach(function (task, index) {
-      if (itemContent === task) {
-        tasks.splice(index, 1)
-      }
-    })
-
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-  }
-
-
-  // Clear task event
-  clearBtn.addEventListener('click', clearTasks)
-
-  function clearTasks(e) {
-    while (taskList.firstChild) {
-      taskList.removeChild(taskList.firstChild)
-    }
-
-    clearTasksFromLocalStorage()
-  }
-
-  function clearTasksFromLocalStorage() {
-    localStorage.clear()
-  }
-
-
-  // Filter through tasks event
-  filter.addEventListener('keyup', filterTasks)
-
-  function filterTasks(e) {
-    const text = e.target.value.toLowerCase()
-
-    document.querySelectorAll('#mend').forEach(
-      function (task) {
-        const item = task.firstChild.textContent.toLowerCase()
-
-        if (item.indexOf(text) != -1) {
-          task.style.display = 'block';
-        } else {
-          task.style.display = 'none';
-        }
-      }
-    );
+const formError = document.querySelector('#form-error')
+const taskList = document.querySelector('#collection')
+const filter = document.querySelector('#filter')
+const summary = document.querySelector('#summary')
+const empty = document.querySelector('#empty')
+const clearBtn = document.querySelector('#clear-tasks')
+const clearDoneBtn = document.querySelector('#clear-done')
+
+const KEY = 'tasks'
+let tasks = load()
+
+// Storage. Older versions saved a plain array of strings; upgrade those to objects.
+function load() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(KEY)) || []
+    return raw.map((t, i) => typeof t === 'string'
+      ? { id: i + 1, text: t, done: false }
+      : t)
+  } catch (e) {
+    return []
   }
 }
+
+function save() {
+  // Only this app's key is touched, so other demos' saved data is left alone.
+  try { localStorage.setItem(KEY, JSON.stringify(tasks)) } catch (e) { /* storage unavailable */ }
+}
+
+// Rendering
+function render() {
+  taskList.innerHTML = ''
+  // The filter is only shown for 2+ tasks; drop a leftover query when it disappears.
+  if (tasks.length < 2) filter.value = ''
+  const q = filter.value.trim().toLowerCase()
+  let visible = 0
+
+  tasks.forEach(task => {
+    const li = document.createElement('li')
+    li.className = 'task' + (task.done ? ' done' : '')
+    li.dataset.id = task.id
+    li.hidden = q !== '' && task.text.toLowerCase().indexOf(q) === -1
+    if (!li.hidden) visible++
+
+    const box = document.createElement('input')
+    box.type = 'checkbox'
+    box.id = 'task-' + task.id
+    box.checked = task.done
+
+    const label = document.createElement('label')
+    label.htmlFor = box.id
+    label.textContent = task.text
+
+    const del = document.createElement('button')
+    del.type = 'button'
+    del.className = 'delete-item'
+    del.textContent = '×'
+    del.setAttribute('aria-label', 'Delete ' + task.text)
+
+    li.appendChild(box)
+    li.appendChild(label)
+    li.appendChild(del)
+    taskList.appendChild(li)
+  })
+
+  const done = tasks.filter(t => t.done).length
+  summary.textContent = tasks.length
+    ? `${tasks.length} ${tasks.length === 1 ? 'task' : 'tasks'}, ${done} done`
+    : ''
+
+  if (!tasks.length) {
+    empty.textContent = 'Nothing to do yet. Add a task above.'
+  } else if (!visible) {
+    empty.textContent = `No tasks match “${filter.value.trim()}”.`
+  }
+  empty.hidden = tasks.length > 0 && visible > 0
+
+  filter.hidden = tasks.length < 2
+  clearDoneBtn.hidden = done === 0
+  clearBtn.hidden = tasks.length === 0
+}
+
+// Events
+form.addEventListener('submit', function (e) {
+  e.preventDefault()
+  const text = taskInput.value.trim()
+
+  if (!text) {
+    formError.hidden = false
+    taskInput.setAttribute('aria-invalid', 'true')
+    taskInput.focus()
+    return
+  }
+
+  formError.hidden = true
+  taskInput.removeAttribute('aria-invalid')
+  const id = tasks.reduce((m, t) => Math.max(m, t.id), 0) + 1
+  tasks.push({ id: id, text: text, done: false })
+  save()
+  taskInput.value = ''
+  render()
+  taskInput.focus()
+})
+
+taskInput.addEventListener('input', function () {
+  if (!formError.hidden && taskInput.value.trim()) {
+    formError.hidden = true
+    taskInput.removeAttribute('aria-invalid')
+  }
+})
+
+taskList.addEventListener('change', function (e) {
+  if (e.target.type !== 'checkbox') return
+  const id = Number(e.target.closest('.task').dataset.id)
+  const task = tasks.find(t => t.id === id)
+  task.done = e.target.checked
+  save()
+  render()
+  document.getElementById('task-' + id).focus()
+})
+
+taskList.addEventListener('click', function (e) {
+  const del = e.target.closest('.delete-item')
+  if (!del) return
+  const li = del.closest('.task')
+  const visible = el => el && !el.hidden
+  let next = li.nextElementSibling
+  while (next && !visible(next)) next = next.nextElementSibling
+  if (!next) {
+    next = li.previousElementSibling
+    while (next && !visible(next)) next = next.previousElementSibling
+  }
+  const nextId = next && next.dataset.id
+  tasks = tasks.filter(t => t.id !== Number(li.dataset.id))
+  save()
+  render()
+  // Keep keyboard focus nearby after the row disappears.
+  const target = nextId && taskList.querySelector(`[data-id="${nextId}"] .delete-item`)
+  ;(target || taskInput).focus()
+})
+
+filter.addEventListener('input', render)
+
+clearDoneBtn.addEventListener('click', function () {
+  tasks = tasks.filter(t => !t.done)
+  save()
+  render()
+})
+
+clearBtn.addEventListener('click', function () {
+  const what = tasks.length === 1 ? 'your 1 task' : `all ${tasks.length} tasks`
+  if (!confirm(`Delete ${what}? This can't be undone.`)) return
+  tasks = []
+  filter.value = ''
+  save()
+  render()
+  taskInput.focus()
+})
+
+render()

@@ -4,62 +4,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
   <title>Book List by Elpis</title>
-  <link rel="icon" href="/images/Elpis/logo32.png">
   <meta name="description" content="Add and delete books persisted to local storage. A small vanilla JavaScript demo by Elpis.">
-  <style>body{padding-top:64px!important}</style>
+  <meta name="theme-color" content="#708090">
+  <link rel="icon" href="/images/Elpis/logo32.png">
+  <link rel="stylesheet" href="../../fonts/newsreader.css?v=20261111">
+  <link rel="stylesheet" href="../../demo.css?v=20261111">
+  <link rel="stylesheet" href="style.css?v=20261111">
 </head>
 
 <body>
-  <a href="/" style="position:absolute;top:12px;left:12px;z-index:9999;padding:8px 14px;font:600 14px system-ui,sans-serif;color:#eaf3fa;background:rgba(0,25,42,.85);border:1px solid rgba(255,255,255,.25);border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.3)">&larr; Back to Elpis Works</a>
+  <a class="back-link" href="/">&larr; Back to Elpis Works</a>
 
-  <div class="card">
+  <main class="card">
+    <header class="card-head">
+      <h1>Book List</h1>
+      <p>Keep track of the books you want to read. Your list stays in this browser.</p>
+    </header>
 
-    <h1>Add Book</h1>
-
-    <form id="book-form">
-
-      <div>
+    <form id="book-form" novalidate>
+      <div class="field field-wide">
         <label for="title">Title</label>
-        <input required autocomplete="off" type="text" id="title">
+        <input autocomplete="off" type="text" id="title" placeholder="The Left Hand of Darkness">
       </div>
 
-      <div>
+      <div class="field">
         <label for="author">Author</label>
-        <input required autocomplete="off" type="text" id="author">
+        <input autocomplete="off" type="text" id="author" placeholder="Ursula K. Le Guin">
       </div>
 
-      <div>
+      <div class="field">
         <label for="isbn">ISBN</label>
-        <input required autocomplete="off" type="text" id="isbn">
+        <input autocomplete="off" type="text" id="isbn" inputmode="numeric" placeholder="9780441478125">
       </div>
 
-      <div>
-        <input type="submit" class="submit-form">
-      </div>
-
+      <button type="submit" class="submit-form">Add book</button>
     </form>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>ISBN</th>
-          <th></th>
-        </tr>
-      </thead>
+    <div id="alerts" class="alerts" role="status" aria-live="polite"></div>
 
-      <tbody id="book-list">
+    <section class="shelf" aria-labelledby="shelf-title">
+      <h2 id="shelf-title">Your books <span id="book-count" class="count">0</span></h2>
 
-      </tbody>
-    </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">ISBN</th>
+              <th scope="col"><span class="sr-only">Remove</span></th>
+            </tr>
+          </thead>
+          <tbody id="book-list"></tbody>
+        </table>
+      </div>
 
-  </div>
+      <p id="empty" class="empty">No books yet. Add your first one above.</p>
+    </section>
+  </main>
 
-  <script src="app.js"></script>
-
+  <script src="app.js?v=20261111"></script>
 </body>
 
 </html>

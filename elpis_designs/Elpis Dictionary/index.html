@@ -4,56 +4,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
   <title>Elpis Dictionary</title>
+  <meta name="description" content="Search a dictionary of over 100,000 words by exact word, starting letters or containing text. A small vanilla JavaScript demo by Elpis.">
+  <meta name="theme-color" content="#9acd32">
   <link rel="icon" href="/images/Elpis/logo32.png">
-  <meta name="description" content="Search a dictionary by whole word, starting letters or containing text. A small vanilla JavaScript demo by Elpis.">
-  <style>body{padding-top:64px!important}</style>
+  <link rel="stylesheet" href="../fonts/source-serif-4.css?v=20261111">
+  <link rel="stylesheet" href="../demo.css?v=20261111">
+  <link rel="stylesheet" href="style.css?v=20261111">
 </head>
 
 <body>
-  <a href="/" style="position:absolute;top:12px;left:12px;z-index:9999;padding:8px 14px;font:600 14px system-ui,sans-serif;color:#eaf3fa;background:rgba(0,25,42,.85);border:1px solid rgba(255,255,255,.25);border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.3)">&larr; Back to Elpis Works</a>
+  <a class="back-link" href="/">&larr; Back to Elpis Works</a>
 
-  <div class="card">
+  <main class="card">
+    <header>
+      <h1>Elpis Dictionary</h1>
+      <p class="sub">Over 100,000 words with their meanings.</p>
+    </header>
 
-    <h1>Elpis Dictionary</h1>
-
-    <form id="search-word">
-
-      <input type="text" id="word-input" placeholder="Search" autocomplete="off">
-      <input type="submit" value="Search">
-
-      <div class="cho-div">
-
-        <div class="cho-holder">
-          <input type="radio" class="cho-type" name="cho-type" value="Elpis" id="word-only">
-          <label for="word-only">Word Only</label>
-        </div>
-
-        <div class="cho-holder">
-          <input type="radio" checked class="cho-type" name="cho-type" id="word-starting">
-          <label for="word-starting">Starting Word</label>
-        </div>
-
-        <div class="cho-holder">
-          <input type="radio" class="cho-type" name="cho-type" id="word-inside">
-          <label for="word-inside">Words Containing</label>
-        </div>
-
+    <form id="search-word" role="search">
+      <label class="sr-only" for="word-input">Word to look up</label>
+      <div class="search-row">
+        <input type="search" id="word-input" placeholder="Look up a word" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <button type="submit">Search</button>
       </div>
 
+      <fieldset class="modes">
+        <legend class="sr-only">Match words that</legend>
+        <input type="radio" name="mode" value="exact" id="word-only">
+        <label for="word-only">Exact word</label>
+        <input type="radio" name="mode" value="start" id="word-starting" checked>
+        <label for="word-starting">Starts with</label>
+        <input type="radio" name="mode" value="contain" id="word-inside">
+        <label for="word-inside">Contains</label>
+      </fieldset>
     </form>
 
-    <div class="loader">
-      <img src="gifs/unnamed (1).gif" alt="">
-    </div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
 
-    <div id="display-meaning"></div>
+    <div id="display-meaning" class="results"></div>
 
-  </div>
+    <button type="button" id="more" class="more" hidden>Show more words</button>
+  </main>
 
-  <script src="app.js"></script>
-
+  <script src="app.js?v=20261111"></script>
 </body>
 
 </html>

@@ -4,77 +4,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Loan Calculator</title>
+  <title>Loan Calculator by Elpis</title>
+  <meta name="description" content="Calculate monthly loan repayments, total cost and interest from amount, rate and term. A small vanilla JavaScript demo by Elpis.">
+  <meta name="theme-color" content="#e9967a">
   <link rel="icon" href="/images/Elpis/logo32.png">
-  <meta name="description" content="Calculate loan repayments from amount, interest and years. A small vanilla JavaScript demo by Elpis.">
-  <style>body{padding-top:64px!important}</style>
+  <link rel="stylesheet" href="../fonts/ibm-plex-sans.css?v=20261111">
+  <link rel="stylesheet" href="../demo.css?v=20261111">
+  <link rel="stylesheet" href="style.css?v=20261111">
 </head>
 
 <body>
-  <a href="/" style="position:absolute;top:12px;left:12px;z-index:9999;padding:8px 14px;font:600 14px system-ui,sans-serif;color:#eaf3fa;background:rgba(0,25,42,.85);border:1px solid rgba(255,255,255,.25);border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.3)">&larr; Back to Elpis Works</a>
+  <a class="back-link" href="/">&larr; Back to Elpis Works</a>
 
-  <div class="card">
-
+  <main class="card">
     <h1 class="heading">Loan Calculator</h1>
 
-    <form id="loan-form">
-
-      <div class="input-holders">
-        <label for="amount">Amount</label>
-        <span id="add-input">$</span>
-        <input required type="number" placeholder="Loan Amount" id="amount">
+    <form id="loan-form" novalidate>
+      <div class="field">
+        <label for="amount">Loan amount</label>
+        <div class="affix">
+          <span class="prefix" aria-hidden="true">$</span>
+          <input type="number" id="amount" min="1" step="any" inputmode="decimal" placeholder="25000">
+        </div>
       </div>
 
-      <div class="input-holders">
-        <label for="intrest">Intrest</label>
-        <span id="add-input">%</span>
-        <input required type="number" placeholder="Intrest" id="intrest">
+      <div class="field-row">
+        <div class="field">
+          <label for="interest">Interest rate</label>
+          <div class="affix">
+            <input type="number" id="interest" min="0" step="any" inputmode="decimal" placeholder="6.5" aria-describedby="interest-unit">
+            <span class="suffix" id="interest-unit">% a year</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="years">Term</label>
+          <div class="affix">
+            <input type="number" id="years" min="1" max="50" step="1" inputmode="numeric" placeholder="5" aria-describedby="years-unit">
+            <span class="suffix" id="years-unit">years</span>
+          </div>
+        </div>
       </div>
 
-      <div class="input-holders">
-        <label for="years">Years to Repay</label>
-        <input required type="number" placeholder="Years" id="years">
-      </div>
+      <p id="error" class="danger-alert" role="alert" hidden></p>
 
-      <div class="">
-        <input type="submit" id="calculate" value="Calculate">
-      </div>
-
+      <button type="submit" id="calculate">Calculate repayments</button>
     </form>
 
-    <div id="loading">
-      <img id="image-loading" src="image/unnamed (1).gif" alt="">
-    </div>
+    <section class="results" id="results" hidden aria-labelledby="results-title" aria-live="polite">
+      <h2 id="results-title" class="sr-only">Results</h2>
 
-    <div class="results">
+      <p class="monthly">
+        <span class="label">Monthly payment</span>
+        <output id="monthly-payment" class="big"></output>
+      </p>
 
-      <h1>Results</h1>
-
-      <div class="result-holders">
-        <label>Monthly Payment</label>
-        <span id="add-input">$</span>
-        <input type="number" id="monthly-payment" disabled>
+      <div class="split" aria-hidden="true">
+        <span class="split-principal" id="bar-principal"></span>
+        <span class="split-interest" id="bar-interest"></span>
       </div>
 
-      <div class="result-holders">
-        <label>Total Payment</label>
-        <span id="add-input">$</span>
-        <input type="number" id="total-payment" disabled>
-      </div>
+      <dl class="totals">
+        <div>
+          <dt><span class="dot dot-principal" aria-hidden="true"></span>Amount borrowed</dt>
+          <dd id="principal-out"></dd>
+        </div>
+        <div>
+          <dt><span class="dot dot-interest" aria-hidden="true"></span>Total interest</dt>
+          <dd id="total-interest"></dd>
+        </div>
+        <div class="total-row">
+          <dt>Total you repay</dt>
+          <dd id="total-payment"></dd>
+        </div>
+      </dl>
+    </section>
+  </main>
 
-      <div class="result-holders">
-        <label>Total Intrest</label>
-        <span id="add-input">$</span>
-        <input type="number" id="total-intrest" disabled>
-      </div>
-
-    </div>
-
-  </div>
-
-  <script src="app.js"></script>
-
+  <script src="app.js?v=20261111"></script>
 </body>
 
 </html>

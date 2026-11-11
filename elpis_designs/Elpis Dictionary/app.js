@@ -1,123 +1,199 @@
-// Define UI Variables
+// UI elements
 const UISearchForm = document.querySelector('#search-word')
-
 const UISearchInput = document.querySelector('#word-input')
-
 const UIDisplayWord = document.querySelector('#display-meaning')
+const UIStatus = document.querySelector('#status')
+const UIMore = document.querySelector('#more')
 
-const UIwordOnly = document.querySelector('#word-only')
+// The dictionary is split into one file per starting letter (words/a.json ... words/z.json,
+// plus words/_.json for entries that start with anything else), so an exact or
+// "starts with" search only downloads one letter instead of the whole dictionary.
+const SHARDS = 'abcdefghijklmnopqrstuvwxyz_'.split('')
+const PAGE = 50
+const cache = {}
+const loaded = {}
 
-const UIwordStarting = document.querySelector('#word-starting')
+let results = []
+let shown = 0
+let currentWord = ''
+let searchId = 0
 
-const UIwordInside = document.querySelector('#word-inside')
+function shardFor(word) {
+  const c = word.charAt(0)
+  return c >= 'a' && c <= 'z' ? c : '_'
+}
 
-const UIloader = document.querySelector('.loader')
+function loadShard(letter) {
+  if (!cache[letter]) {
+    cache[letter] = fetch(`words/${letter}.json`).then(res => {
+      if (!res.ok) throw new Error(res.status)
+      return res.json()
+    }).then(data => {
+      loaded[letter] = data
+      return data
+    })
+    cache[letter].catch(() => { delete cache[letter] })
+  }
+  return cache[letter]
+}
 
-const UInewWord = document.querySelector('div#display-meaning > li div.meaning a:hover')
+function setStatus(text, loading) {
+  UIStatus.textContent = text
+  UIStatus.classList.toggle('loading', !!loading)
+}
 
-// Define Inside Variables
-let qcorrectSet;
+function mode() {
+  return document.querySelector('input[name=mode]:checked').value
+}
 
-let acorrectSet;
+// Events
+UISearchForm.addEventListener('submit', function (e) {
+  e.preventDefault()
+  findWord()
+})
+document.querySelectorAll('input[name=mode]').forEach(r => {
+  r.addEventListener('change', () => { if (UISearchInput.value.trim()) findWord() })
+})
+UIMore.addEventListener('click', renderMore)
 
-let xhr;
+function findWord() {
+  const word = UISearchInput.value.trim().toLowerCase()
+  const m = mode()
+  const id = ++searchId
 
+  UIDisplayWord.innerHTML = ''
+  UIMore.hidden = true
+  results = []
+  shown = 0
+  currentWord = word
 
-// Event Listeners
+  syncUrl(word, m)
 
-window.addEventListener('load', initXHR)
-
-UISearchForm.addEventListener('submit', findWord)
-
-
-// Functions
-function initXHR() {
-  xhr = new XMLHttpRequest();
-
-  xhr.open('get', 'dictionary.json', true)
-
-  xhr.onload = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      dict = JSON.parse(xhr.responseText)
-
-      qcorrectSet = Object.keys(dict)
-      acorrectSet = Object.values(dict)
-    }
+  if (!word) {
+    setStatus('')
+    showNotice('Type a word to look it up', 'Enter a word above, then choose how it should match.')
+    UISearchInput.focus()
+    return
   }
 
-  xhr.send();
-}
+  if (m === 'contain' && word.length < 2) {
+    setStatus('')
+    showNotice('Type at least 2 letters', 'Contains searches every word, so it needs at least 2 letters to search for.')
+    UISearchInput.focus()
+    return
+  }
 
-function findWord(e) {
-  e.preventDefault();
+  const letters = m === 'contain' ? SHARDS : [shardFor(word)]
+  let done = 0
+  setStatus(m === 'contain' ? 'Searching every word…' : 'Searching…', true)
 
-  UIDisplayWord.style.display = 'none'
-  UIloader.style.display = 'flex'
+  Promise.all(letters.map(l => loadShard(l).then(data => {
+    done++
+    if (m === 'contain' && id === searchId) setStatus(`Searching every word… ${done} of ${letters.length} letters`, true)
+    return data
+  })))
+    .then(shards => {
+      if (id !== searchId) return
 
-  setTimeout(function () {
-    word = UISearchInput.value.toLowerCase()
-
-    let finalOutput = '';
-    let finalList = [];
-
-    if (word != '') {
-      qcorrectSet.forEach(function (aword, index) {
-        if (UIwordOnly.checked) {
-          if (aword === word) {
-            finalList.push(`${aword}   ?${index}`)
-          }
-        }
-
-        if (UIwordStarting.checked) {
-          if (aword.slice(0, word.length) === word) {
-            finalList.push(`${aword}   ?${index}`)
-          }
-        }
-
-        if (UIwordInside.checked) {
-          if (aword.indexOf(word) != -1) {
-            finalList.push(`${aword}   ?${index}`)
+      shards.forEach(data => {
+        for (const key in data) {
+          if (m === 'exact' ? key === word
+            : m === 'start' ? key.startsWith(word)
+            : key.includes(word)) {
+            results.push(key)
           }
         }
       })
 
-      finalList.sort()
+      // Exact match first, then words that start with the search, then the rest; alphabetical within each.
+      const rank = k => (k === word ? 0 : k.startsWith(word) ? 1 : 2)
+      results.sort((a, b) => rank(a) - rank(b) || (a < b ? -1 : a > b ? 1 : 0))
 
-      finalList.forEach(function (value) {
-        let x = Number(value.split('?')[1]);
+      if (!results.length) {
+        setStatus('')
+        const tip = m === 'contain' ? 'Check the spelling and try again.' : 'Check the spelling, or try Contains to search inside words.'
+        showNotice(`No words match “${word}”`, tip)
+        return
+      }
 
-        finalOutput += `
-      <li>
-        <div class='word'>${qcorrectSet[x]}</div>
-        <div class='meaning'>${acorrectSet[x]}</div>
-      </li>
-      `
-      })
-    } else {
-      finalList = ['x']
-    }
-
-    if (finalList.length === 0) {
-      finalOutput = `
-      <li>
-      <div class='word' style='padding-bottom: 1rem'>Word does not Exist</div>
-      <div class='meaning' style='padding-top: 1rem; text-align: center'>Sorry but the word you are looking for does not exist in our database, if you'll like to add a new word fill out <a onclick="alert('Sorry but you don\\'t have sufficient permissions to perform this action, please contact the developer')">this form</a></div>
-      </li>
-      `
-    } else if (finalList[0] === 'x') {
-      finalOutput = `
-      <li>
-      <div class='word' style='padding-bottom: 1rem'>Search Box is Empty</div>
-      <div class='meaning' style='padding-top: 1rem; text-align: center'>Type a word in the above search box to find its meaning</div>
-      </li>
-      `
-    }
-
-    UIDisplayWord.innerHTML = ''
-    UIDisplayWord.innerHTML += finalOutput
-    UIloader.style.display = 'none'
-    UIDisplayWord.style.display = 'flex'
-
-    e.preventDefault();
-  }, 1000)
+      setStatus(results.length === 1 ? '1 word found' : `${results.length.toLocaleString()} words found`)
+      renderMore()
+    })
+    .catch(() => {
+      if (id !== searchId) return
+      setStatus('')
+      showNotice('Could not load the dictionary', 'Check your connection and search again.')
+    })
 }
+
+function renderMore() {
+  const frag = document.createDocumentFragment()
+  results.slice(shown, shown + PAGE).forEach(key => {
+    const entry = document.createElement('article')
+    entry.className = 'entry'
+
+    const h = document.createElement('h2')
+    h.className = 'word'
+    highlight(h, key, currentWord)
+
+    const p = document.createElement('p')
+    p.className = 'meaning'
+    p.textContent = loaded[shardFor(key)][key]
+
+    entry.appendChild(h)
+    entry.appendChild(p)
+    frag.appendChild(entry)
+  })
+  UIDisplayWord.appendChild(frag)
+  shown = Math.min(shown + PAGE, results.length)
+
+  const left = results.length - shown
+  UIMore.hidden = left <= 0
+  UIMore.textContent = `Show ${Math.min(left, PAGE)} more of ${left.toLocaleString()}`
+}
+
+function highlight(el, key, word) {
+  const i = key.indexOf(word)
+  if (i < 0 || !word) { el.textContent = key; return }
+  el.appendChild(document.createTextNode(key.slice(0, i)))
+  const mark = document.createElement('mark')
+  mark.textContent = key.slice(i, i + word.length)
+  el.appendChild(mark)
+  el.appendChild(document.createTextNode(key.slice(i + word.length)))
+}
+
+function showNotice(title, text) {
+  UIDisplayWord.innerHTML = ''
+  const box = document.createElement('div')
+  box.className = 'notice'
+  const h = document.createElement('h2')
+  h.textContent = title
+  const p = document.createElement('p')
+  p.textContent = text
+  box.appendChild(h)
+  box.appendChild(p)
+  UIDisplayWord.appendChild(box)
+}
+
+// Keep the search in the URL so a lookup can be shared or bookmarked.
+function syncUrl(word, m) {
+  const params = new URLSearchParams()
+  if (word) params.set('q', word)
+  if (m !== 'start') params.set('mode', m)
+  const qs = params.toString()
+  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''))
+}
+
+;(function restore() {
+  const params = new URLSearchParams(location.search)
+  const m = params.get('mode')
+  const radio = document.querySelector(`input[name=mode][value="${m === 'exact' || m === 'contain' ? m : 'start'}"]`)
+  radio.checked = true
+  const q = params.get('q')
+  if (q) {
+    UISearchInput.value = q
+    findWord()
+  } else {
+    UISearchInput.focus()
+  }
+})()
