@@ -20,7 +20,7 @@ Fonts/          display fonts
 docs/PLAN.md    upgrade plan
 ```
 
-To add a project, put it in `elpis_designs/`, add a screenshot to `images/`, and add an entry to the `projects` array in `app.js` (plus `index.html` noscript list, JSON-LD and `sitemap.xml`).
+To add a project, put it in `elpis_designs/`, add a screenshot to `images/`, and add an entry to the `projects` array in `app.js` (plus `index.html` noscript list, JSON-LD and `sitemap.xml`). Set its `color` to the screenshot's edge color; it fills the card behind the screenshot.
 
 ## Run locally
 
