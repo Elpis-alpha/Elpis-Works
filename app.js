@@ -6,7 +6,7 @@
       title: 'Book List',
       path: 'elpis_designs/Book List/ES6/index.html',
       image: 'images/book_list.jpg',
-      alt: 'Book List app: an Add Book form with title, author and ISBN fields above an empty table',
+      alt: 'Book List app: an Add Book form with title, author and ISBN fields above a table listing four books',
       description: 'Add and delete books in a tidy table. Your list is saved to local storage.',
       tags: ['Storage', 'Forms']
     },
@@ -14,7 +14,7 @@
       title: 'Chuck Norris Joke Generator',
       path: 'elpis_designs/Chuck Norris Generator/index.html',
       image: 'images/chuck_norris.jpg',
-      alt: 'Chuck Norris Joke Generator: a number input, a Get Jokes button and a list of six jokes',
+      alt: 'Chuck Norris Joke Generator: a number input, a Get Jokes button and a list of three jokes',
       description: 'Pick how many jokes you want and fetch them from a local JSON API.',
       tags: ['API']
     },
@@ -30,7 +30,7 @@
       title: 'Loan Calculator',
       path: 'elpis_designs/Loan Calculator/index.html',
       image: 'images/loan_calculator.jpg',
-      alt: 'Loan Calculator: a dark red card with amount, interest and years fields and a Calculate button on a salmon background',
+      alt: 'Loan Calculator: a dark red card with amount, interest and years filled in, a Calculate button and the monthly payment result',
       description: 'Enter an amount, interest rate and term to see your repayment breakdown.',
       tags: ['Tool', 'Forms']
     },
@@ -38,7 +38,7 @@
       title: 'Number Guesser',
       path: 'elpis_designs/Number Guesser/index.html',
       image: 'images/number_guesser.jpg',
-      alt: 'Number Guesser: a purple card asking you to guess a number between 1 and 10 with an input and Submit button',
+      alt: 'Number Guesser: a purple card asking you to guess a number between 1 and 10, with a hint that the last guess was close',
       description: 'A small guessing game that reacts to every attempt and tracks your progress.',
       tags: ['Game']
     },
@@ -46,7 +46,7 @@
       title: 'Task List',
       path: 'elpis_designs/Tasks/index.html',
       image: 'images/task_list.jpg',
-      alt: 'Task List: a gray card with a New Task field, Add Task button, a filter box and a Clear Tasks button on a blue background',
+      alt: 'Task List: a gray card with a New Task field, an Add Task button, a filter box, three tasks and a Clear Tasks button',
       description: 'Add, remove and filter tasks, with everything saved in local storage.',
       tags: ['Storage', 'Tool']
     },
@@ -54,7 +54,7 @@
       title: 'Form Validation',
       path: 'elpis_designs/Form Validation/index.html',
       image: 'images/form_validation.jpg',
-      alt: 'Form Validation: a cyan form with name, zipcode, email and phone number fields and a Submit button',
+      alt: 'Form Validation: a cyan form with name, zipcode, email and phone number fields, with an error shown under the invalid phone number',
       description: 'A form that validates each field as you leave it, with instant feedback.',
       tags: ['Forms']
     },
@@ -62,7 +62,7 @@
       title: 'Tracalorie',
       path: 'elpis_designs/Tracalorie/index.html',
       image: 'images/tracalorie.jpg',
-      alt: 'Tracalorie: a pink calorie tracker showing an Add Meal form, a total of 3600 calories and a list of three meals',
+      alt: 'Tracalorie: a pink calorie tracker showing an Add Meal form, a total of 2200 calories and a list of three meals',
       description: 'Track your calorie intake with add, edit and delete for every meal.',
       tags: ['Storage', 'Tool']
     }
