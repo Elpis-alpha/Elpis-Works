@@ -11,8 +11,8 @@
   <meta name="robots" content="index, follow">
   <meta name="application-name" content="Elpis Works">
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#00192a" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f3f7fb" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#00192a" id="tc-dark" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f3f7fb" id="tc-light" media="(prefers-color-scheme: light)">
   <link rel="canonical" href="https://little-works.elpis.cc/">
 
   <meta property="og:title" content="Elpis Works | Small Web Apps in Vanilla JavaScript">
@@ -39,6 +39,7 @@
 
   <script>
     /* Apply saved theme before paint to avoid a flash */
+    document.documentElement.classList.add('js');
     try {
       var t = localStorage.getItem('theme');
       if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
@@ -120,7 +121,10 @@
 
       <div class="grid" id="grid"></div>
 
-      <p class="empty" id="empty" hidden>No projects match your search. Try a different word or clear the filter.</p>
+      <div class="empty" id="empty" hidden>
+        <p>No projects match your search. Try a different word or clear the filter.</p>
+        <button class="empty-btn" id="reset" type="button">Clear search and filter</button>
+      </div>
 
       <noscript>
         <ul class="nojs-list">

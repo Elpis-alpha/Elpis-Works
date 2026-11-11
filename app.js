@@ -98,6 +98,11 @@
     var next = currentTheme() === 'light' ? 'dark' : 'light'
     root.dataset.theme = next
     store('local', 'theme', next)
+    var color = next === 'light' ? '#f3f7fb' : '#00192a'
+    ;['tc-dark', 'tc-light'].forEach(function (id) {
+      var m = document.getElementById(id)
+      if (m) m.setAttribute('content', color)
+    })
     syncToggle()
   })
   syncToggle()
@@ -115,6 +120,7 @@
     a.href = encodeURI(p.path)
     a.setAttribute('aria-label', p.title + ': ' + p.description)
     a.style.setProperty('--i', i)
+    a.addEventListener('animationend', function () { a.classList.add('settled') })
 
     var media = el('div', 'card-media')
     var img = el('img')
@@ -144,31 +150,37 @@
   projects.forEach(function (p) {
     p.tags.forEach(function (t) { if (allTags.indexOf(t) < 0) allTags.push(t) })
   })
+  function setTag(t) {
+    activeTag = t
+    Array.prototype.forEach.call(chipsEl.children, function (c) {
+      c.setAttribute('aria-pressed', String(c.textContent === t))
+    })
+    applyFilter()
+  }
   allTags.forEach(function (t) {
     var b = el('button', 'chip', t)
     b.type = 'button'
     b.setAttribute('aria-pressed', String(t === 'All'))
-    b.addEventListener('click', function () {
-      activeTag = t
-      Array.prototype.forEach.call(chipsEl.children, function (c) {
-        c.setAttribute('aria-pressed', String(c === b))
-      })
-      applyFilter()
-    })
+    b.addEventListener('click', function () { setTag(t) })
     chipsEl.appendChild(b)
+  })
+  document.getElementById('reset').addEventListener('click', function () {
+    search.value = ''
+    setTag('All')
+    search.focus()
   })
 
   function applyFilter() {
-    var q = search.value.trim().toLowerCase()
+    var terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean)
     var shown = 0
     projects.forEach(function (p, i) {
       var hay = (p.title + ' ' + p.description + ' ' + p.tags.join(' ')).toLowerCase()
-      var ok = (activeTag === 'All' || p.tags.indexOf(activeTag) >= 0) && hay.indexOf(q) >= 0
+      var ok = (activeTag === 'All' || p.tags.indexOf(activeTag) >= 0) && terms.every(function (w) { return hay.indexOf(w) >= 0 })
       cards[i].hidden = !ok
       if (ok) shown++
     })
     emptyEl.hidden = shown !== 0
-    statusEl.textContent = shown === projects.length && !q && activeTag === 'All'
+    statusEl.textContent = shown === projects.length && !terms.length && activeTag === 'All'
       ? '' : 'Showing ' + shown + ' of ' + projects.length + ' projects'
   }
   search.addEventListener('input', applyFilter)

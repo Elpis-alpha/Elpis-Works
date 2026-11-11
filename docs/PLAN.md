@@ -12,7 +12,7 @@ Site: static GitHub Pages portfolio at https://little-works.elpis.cc (see `CNAME
 
 ## Design direction (modern, not heavy)
 - Dark, deep-navy base (keep brand `#00192a`) with a soft aurora/gradient glow background and subtle grain; light theme via `prefers-color-scheme` + manual toggle (persisted in localStorage).
-- Keep the brand display font (`Fonts/Devr.ttf`, `Fonts/Acquest.ttf`) for logo/headings only; body in system UI font stack (fast, readable).
+- Keep the brand display font (`Fonts/Devr.ttf`) for logo/headings only; body in system UI font stack (fast, readable).
 - Layout: sticky glass header (logo, theme toggle, GitHub link) → hero (short headline, tagline, project count) → responsive CSS-grid of project cards (1/2/3/4 cols) with lazy images, hover lift + glow, tags per project → footer.
 - Add a small client-side search/filter box and tag chips (core functionality upgrade: findable projects). Cards stay plain `<a>`-wrapped articles (one link per card).
 - Brief (<1.2s) fade-in intro only, skipped for `prefers-reduced-motion` and repeat visits (sessionStorage). No blocking overlay.
