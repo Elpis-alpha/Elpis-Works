@@ -2,440 +2,146 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elpis Works | Small Web Apps in Vanilla JavaScript</title>
+  <meta name="description" content="Elpis Works is a collection of small, hand-built web apps in vanilla HTML, CSS and JavaScript: a book list, task manager, calorie tracker, loan calculator, dictionary and more.">
+  <meta name="keywords" content="Elpis, Elpis Works, portfolio, JavaScript projects, vanilla JS, web apps, frontend demos, book list, task list, loan calculator, tracalorie">
+  <meta name="author" content="Elpis">
+  <meta name="robots" content="index, follow">
+  <meta name="application-name" content="Elpis Works">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#00192a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f3f7fb" media="(prefers-color-scheme: light)">
+  <link rel="canonical" href="https://little-works.elpis.cc/">
 
-  <meta name="author" content="Elpis" />
+  <meta property="og:title" content="Elpis Works | Small Web Apps in Vanilla JavaScript">
+  <meta property="og:url" content="https://little-works.elpis.cc/">
+  <meta property="og:description" content="A collection of small, hand-built web apps in vanilla HTML, CSS and JavaScript.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Elpis Works">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://little-works.elpis.cc/images/Elpis/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Elpis Works logo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Elpis Works | Small Web Apps in Vanilla JavaScript">
+  <meta name="twitter:description" content="A collection of small, hand-built web apps in vanilla HTML, CSS and JavaScript.">
+  <meta name="twitter:image" content="https://little-works.elpis.cc/images/Elpis/og-image.png">
 
-  <meta name="publisher" content="Elpis" />
-
-  <meta name='robots' content='all' />
-
-  <meta name='googlebot' content='all' />
-
-  <meta name='application-name' content='Elpis Works' />
-
-  <meta name="theme-color" content="#00192a" />
-
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  
-  <title>Elpis Works</title>
-
-  <meta name="description"
-    content="This contains a list of little projects created by Elpis either during various tutorials or during his free time">
-
-  <meta property="og:title" content="Elpis Works" />
-
-  <meta property="og:url" content="https://elpis-alpha.github.io/Elpis-Works/" />
-
-  <meta property="og:description"
-    content="This contains a list of little projects created by Elpis either during various tutorials or during his free time" />
-
-  <meta property="og:type" content="website" />
-
-  <meta property="og:locale" content="en_US" />
-
-  <meta property="og:image" content="https://elpis-alpha.github.io/Elpis-Works/images/Elpis/og-image.png" />
-
-  <meta property="og:image:width" content="1200" />
-
-  <meta property="og:image:height" content="630" />
-
-  <meta property="og:image:type" content="image/png" />
-
-  <link rel="icon" href="images/Elpis/logo32.png" />
-
-  <link rel="apple-touch-icon" href="images/Elpis/logo180.png" />
-
-  <link rel="manifest" href="manifest.json" />
-
+  <link rel="icon" href="images/Elpis/logo32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/Elpis/logo180.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preload" href="Fonts/Devr.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="style.css">
 
+  <script>
+    /* Apply saved theme before paint to avoid a flash */
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      if (!sessionStorage.getItem('seen')) document.documentElement.classList.add('intro');
+    } catch (e) {}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://little-works.elpis.cc/#website",
+        "url": "https://little-works.elpis.cc/",
+        "name": "Elpis Works",
+        "description": "A collection of small, hand-built web apps in vanilla HTML, CSS and JavaScript.",
+        "inLanguage": "en",
+        "author": { "@type": "Person", "name": "Elpis", "url": "https://github.com/Elpis-alpha" }
+      },
+      {
+        "@type": "ItemList",
+        "name": "Elpis Works projects",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "item": { "@type": "CreativeWork", "name": "Book List", "url": "https://little-works.elpis.cc/elpis_designs/Book%20List/ES6/index.html" } },
+          { "@type": "ListItem", "position": 2, "item": { "@type": "CreativeWork", "name": "Chuck Norris Joke Generator", "url": "https://little-works.elpis.cc/elpis_designs/Chuck%20Norris%20Generator/index.html" } },
+          { "@type": "ListItem", "position": 3, "item": { "@type": "CreativeWork", "name": "Elpis Dictionary", "url": "https://little-works.elpis.cc/elpis_designs/Elpis%20Dictionary/index.html" } },
+          { "@type": "ListItem", "position": 4, "item": { "@type": "CreativeWork", "name": "Loan Calculator", "url": "https://little-works.elpis.cc/elpis_designs/Loan%20Calculator/index.html" } },
+          { "@type": "ListItem", "position": 5, "item": { "@type": "CreativeWork", "name": "Number Guesser", "url": "https://little-works.elpis.cc/elpis_designs/Number%20Guesser/index.html" } },
+          { "@type": "ListItem", "position": 6, "item": { "@type": "CreativeWork", "name": "Task List", "url": "https://little-works.elpis.cc/elpis_designs/Tasks/index.html" } },
+          { "@type": "ListItem", "position": 7, "item": { "@type": "CreativeWork", "name": "Form Validation", "url": "https://little-works.elpis.cc/elpis_designs/Form%20Validation/index.html" } },
+          { "@type": "ListItem", "position": 8, "item": { "@type": "CreativeWork", "name": "Tracalorie", "url": "https://little-works.elpis.cc/elpis_designs/Tracalorie/index.html" } }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
+  <a class="skip-link" href="#projects">Skip to projects</a>
 
-  <div class="creg-holder">
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="logo" href="./" aria-label="Elpis Works home">Elpis Works</a>
+      <div class="nav-actions">
+        <a class="icon-btn" href="https://github.com/Elpis-alpha/Elpis-Works" rel="noopener" aria-label="View source on GitHub">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        </a>
+        <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle light and dark theme">
+          <svg class="i-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 4V2m0 20v-2M4 12H2m20 0h-2M5.6 5.6 4.2 4.2m15.6 15.6-1.4-1.4M5.6 18.4l-1.4 1.4M19.8 4.2l-1.4 1.4M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M21 13.5A9 9 0 1 1 10.5 3a7 7 0 0 0 10.5 10.5z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
 
-    <div class='creg'></div>
+  <main id="main">
+    <section class="hero">
+      <p class="eyebrow">Hi there, welcome to</p>
+      <h1>Elpis <span class="grad">Works</span></h1>
+      <p class="tagline">A collection of small web apps built from scratch in plain HTML, CSS and JavaScript. No frameworks, just fundamentals.</p>
+      <p class="count"><strong id="total-count">8</strong> projects</p>
+    </section>
 
-  </div>
+    <section class="projects" id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title" class="sr-only">Projects</h2>
 
-  <div class="initial-content">
-
-    <p>Hi There, Welcome to</p>
-
-    <h1>Elpis Works</h1>
-
-  </div>
-
-  <div class="big-wrapper">
-
-    <header>
-
-      <h1>Elpis Works</h1>
-
-    </header>
-
-    <div class="laside">
-
-      <aside>
-
-        <span>M</span>
-
-        <span>Y</span>
-
-      </aside>
-
-      <aside>
-
-        <span>C</span>
-
-        <span>O</span>
-
-        <span>L</span>
-
-        <span>L</span>
-
-        <span>E</span>
-
-        <span>C</span>
-
-        <span>T</span>
-
-        <span>I</span>
-
-        <span>O</span>
-
-        <span>N</span>
-
-      </aside>
-
-    </div>
-
-    <div class="cards-holder">
-
-      <div title="Book List" class="card">
-
-        <div class="card-step">
-
-          <div class="card-image">
-            <div class="res-image">
-              <img src="images/book_list.jpg" alt="Card Image">
-            </div>
-          </div>
-
-          <div class="card-info">
-
-            <h3>
-              <a title="Book List" target="_blank" href="elpis_designs/Book List/ES6/index.html">
-                Book List
-              </a>
-            </h3>
-
-            <p>
-              <a title="Book List" target="_blank" href="elpis_designs/Book List/ES6/index.html">
-                A web app that creates books, deletes books and persist them to local storage
-              </a>
-            </p>
-
-            <small>
-              <a title="Elpis" target="_blank" href="">
-                ~ designed by Elpis
-              </a>
-            </small>
-
-          </div>
-
-          <a href="elpis_designs/Book List/ES6/index.html" title="Book List" target="_blank" class="overlay-link"></a>
-
+      <div class="toolbar">
+        <div class="search">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m21 21-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z"/></svg>
+          <label class="sr-only" for="search">Search projects</label>
+          <input id="search" type="search" placeholder="Search projects..." autocomplete="off">
         </div>
-
+        <div class="chips" id="chips" role="group" aria-label="Filter by tag"></div>
       </div>
 
-      <div title="Joke Generator" class="card">
-
-        <div class="card-step">
-
-          <div class="card-image">
-            <div class="res-image">
-              <img src="images/chuck_norris.jpg" alt="Card Image">
-            </div>
-          </div>
-
-          <div class="card-info">
-
-            <h3>
-              <a title="Joke Generator" target="_blank" href="elpis_designs/Chuck Norris Generator/index.html">
-                Chuck Norris Joke Generator
-              </a>
-            </h3>
-
-            <p>
-              <a title="Joke Generator" target="_blank" href="elpis_designs/Chuck Norris Generator/index.html">
-                A simple web app that accepts request from a user and in turn generates jokes from a local API
-              </a>
-            </p>
-
-            <small>
-              <a title="Elpis" target="_blank" href="">
-                ~ designed by Elpis
-              </a>
-            </small>
-
-          </div>
-
-          <a href="elpis_designs/Chuck Norris Generator/index.html" title="Joke Generator" target="_blank"
-            class="overlay-link"></a>
-
-        </div>
-
-      </div>
-
-      <div title="Elpis Dictionary" class="card">
-
-        <div class="card-step">
-
-          <div class="card-image">
-            <div class="res-image">
-              <img src="images/elpis_dictionary.jpg" alt="Card Image">
-            </div>
-          </div>
-
-          <div class="card-info">
-
-            <h3>
-              <a title="Elpis Dictionary" target="_blank" href="elpis_designs/Elpis Dictionary/index.html">
-                Elpis Dictionary
-              </a>
-            </h3>
-
-            <p>
-              <a title="Elpis Dictionary" target="_blank" href="elpis_designs/Elpis Dictionary/index.html">
-                A web app that provides collect data, processes it and returns an explanation, it also has multiple
-                options
-              </a>
-            </p>
-
-            <small>
-              <a title="Elpis" target="_blank" href="">
-                ~ designed by Elpis
-              </a>
-            </small>
-
-          </div>
-
-          <a href="elpis_designs/Elpis Dictionary/index.html" title="Elpis Dictionary" target="_blank"
-            class="overlay-link"></a>
-
-        </div>
-
-      </div>
-
-      <div title="Loan Calculator" class="card">
-
-        <div class="card-step">
-
-          <div class="card-image">
-            <div class="res-image">
-              <img src="images/loan_calculator.jpg" alt="Card Image">
-            </div>
-          </div>
-
-          <div class="card-info">
-
-            <h3>
-              <a title="Loan Calculator" target="_blank" href="elpis_designs/Loan Calculator/index.html">
-                Loan Calculator
-              </a>
-            </h3>
-
-            <p>
-              <a title="Loan Calculator" target="_blank" href="elpis_designs/Loan Calculator/index.html">
-                A web app that provides collect Loan data, processes it and displays its relevant information
-              </a>
-            </p>
-
-            <small>
-              <a title="Elpis" target="_blank" href="">
-                ~ designed by Elpis
-              </a>
-            </small>
-
-          </div>
-
-          <a href="elpis_designs/Loan Calculator/index.html" title="Loan Calculator" target="_blank"
-            class="overlay-link"></a>
-
-        </div>
-
-      </div>
-
-      <div title="Number Guesser" class="card">
-
-        <div class="card-step">
-
-          <div class="card-image">
-            <div class="res-image">
-              <img src="images/number_guesser.jpg" alt="Card Image">
-            </div>
-          </div>
-
-          <div class="card-info">
-
-            <h3>
-              <a title="Number Guesser" target="_blank" href="elpis_designs/Number Guesser/index.html">
-                Number Guesser
-              </a>
-            </h3>
-
-            <p>
-              <a title="Number Guesser" target="_blank" href="elpis_designs/Number Guesser/index.html">
-                A simple online game that requests the user to guess between a range of numbers and dynamically sends
-                messages to convey the players progress
-              </a>
-            </p>
-
-            <small>
-              <a title="Elpis" target="_blank" href="">
-                ~ designed by Elpis
-              </a>
-            </small>
-
-          </div>
-
-          <a href="elpis_designs/Number Guesser/index.html" title="Number Guesser" target="_blank"
-            class="overlay-link"></a>
-
-        </div>
-
-      </div>
-
-      <div title="Task List" class="card">
-
-        <div class="card-step">
-
-          <div class="card-image">
-            <div class="res-image">
-              <img src="images/task_list.jpg" alt="Card Image">
-            </div>
-          </div>
-
-          <div class="card-info">
-
-            <h3>
-              <a title="Task List" target="_blank" href="elpis_designs/Tasks/index.html">
-                Task List
-              </a>
-            </h3>
-
-            <p>
-              <a title="Task List" target="_blank" href="elpis_designs/Tasks/index.html">
-                A simple web app that allows you to add various tasks, remove them, add them to local storage and also
-                filter through added tasks
-              </a>
-            </p>
-
-            <small>
-              <a title="Elpis" target="_blank" href="">
-                ~ designed by Elpis
-              </a>
-            </small>
-
-          </div>
-
-          <a href="elpis_designs/Tasks/index.html" title="Task List" target="_blank" class="overlay-link"></a>
-
-        </div>
-
-      </div>
-
-      <div title="Form Validation" class="card">
-
-        <div class="card-step">
-
-          <div class="card-image">
-            <div class="res-image">
-              <img src="images/form_validation.jpg" alt="Card Image">
-            </div>
-          </div>
-
-          <div class="card-info">
-
-            <h3>
-              <a title="Form Validation" target="_blank" href="elpis_designs/Form Validation/index.html">
-                Form Validation
-              </a>
-            </h3>
-
-            <p>
-              <a title="Form Validation" target="_blank" href="elpis_designs/Form Validation/index.html">
-                A simple web app that automatically validates a form based on blur effect
-              </a>
-            </p>
-
-            <small>
-              <a title="Elpis" target="_blank" href="">
-                ~ designed by Elpis
-              </a>
-            </small>
-
-          </div>
-
-          <a href="elpis_designs/Form Validation/index.html" title="Form Validation" target="_blank"
-            class="overlay-link"></a>
-
-        </div>
-
-      </div>
-
-      <div title="Tracalorie" class="card">
-
-        <div class="card-step">
-
-          <div class="card-image">
-            <div class="res-image">
-              <img src="images/tracalorie.jpg" alt="Card Image">
-            </div>
-          </div>
-
-          <div class="card-info">
-
-            <h3>
-              <a title="Tracalorie" target="_blank" href="elpis_designs/Tracalorie/index.html">
-                Tracalorie
-              </a>
-            </h3>
-
-            <p>
-              <a title="Tracalorie" target="_blank" href="elpis_designs/Tracalorie/index.html">
-                A web application thats can be used to keep track of ones calories intake. It also has editing, deleting
-                and much more
-              </a>
-            </p>
-
-            <small>
-              <a title="Elpis" target="_blank" href="">
-                ~ designed by Elpis
-              </a>
-            </small>
-
-          </div>
-
-          <a href="elpis_designs/Tracalorie/index.html" title="Tracalorie" target="_blank" class="overlay-link"></a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+
+      <div class="grid" id="grid"></div>
+
+      <p class="empty" id="empty" hidden>No projects match your search. Try a different word or clear the filter.</p>
+
+      <noscript>
+        <ul class="nojs-list">
+          <li><a href="elpis_designs/Book%20List/ES6/index.html">Book List</a> - create and delete books, persisted to local storage</li>
+          <li><a href="elpis_designs/Chuck%20Norris%20Generator/index.html">Chuck Norris Joke Generator</a> - fetch jokes from a local API</li>
+          <li><a href="elpis_designs/Elpis%20Dictionary/index.html">Elpis Dictionary</a> - dictionary search with multiple match modes</li>
+          <li><a href="elpis_designs/Loan%20Calculator/index.html">Loan Calculator</a> - monthly payment and interest calculator</li>
+          <li><a href="elpis_designs/Number%20Guesser/index.html">Number Guesser</a> - a number guessing game</li>
+          <li><a href="elpis_designs/Tasks/index.html">Task List</a> - add, remove and filter tasks</li>
+          <li><a href="elpis_designs/Form%20Validation/index.html">Form Validation</a> - live form validation on blur</li>
+          <li><a href="elpis_designs/Tracalorie/index.html">Tracalorie</a> - meal and calorie tracker</li>
+        </ul>
+      </noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year">2026</span> Elpis. Designed and built by <a href="https://github.com/Elpis-alpha" rel="noopener">Elpis</a>.</p>
+  </footer>
 
   <script src="app.js"></script>
-
 </body>
 
 </html>
